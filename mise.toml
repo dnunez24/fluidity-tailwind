@@ -1,0 +1,32 @@
+[tools]
+lefthook = "2.1.12"
+rumdl = "0.2.66"
+vale = "3.20.0"
+
+[tasks.hooks]
+description = "Install the Lefthook git hooks"
+run = "lefthook install"
+
+[tasks.sync]
+description = "Download the Vale styles this repo lints Markdown with"
+run = "vale sync"
+
+[tasks.setup]
+description = "Install the git hooks and the Vale styles"
+depends = ["hooks", "sync"]
+
+[tasks."lint:prose"]
+description = "Lint Markdown prose with the Vale, Microsoft, and Deslop styles"
+run = "vale README.md docs"
+
+[tasks."lint:md"]
+description = "Lint Markdown structure and formatting with rumdl"
+run = "rumdl check ."
+
+[tasks."fmt:md"]
+description = "Format Markdown with rumdl"
+run = "rumdl fmt ."
+
+[tasks."lint:markdown"]
+description = "Everything the Markdown hooks check: structure, formatting, and prose"
+depends = ["lint:md", "lint:prose"]

@@ -1,0 +1,47 @@
+assert_lefthook_installed: true
+
+# Format first, then lint the formatted result. `piped` makes that order
+# load-bearing. `stage_fixed` restages rumdl's autofixes so they land in the
+# commit being made, not as unstaged drift after it.
+pre-commit:
+  piped: true
+  # .agents/ and .claude/ are vendored skill docs, not this project's own
+  # prose; never lint or reformat them.
+  exclude:
+    - ".agents/**"
+    - ".claude/**"
+  skip:
+    - merge
+    - rebase
+  jobs:
+    - name: rumdl-format
+      glob: "*.{md,mdx}"
+      run: mise exec -- rumdl fmt {staged_files}
+      stage_fixed: true
+    - name: rumdl-lint
+      glob: "*.{md,mdx}"
+      run: mise exec -- rumdl check {staged_files}
+    - name: vale
+      glob: "*.{md,mdx}"
+      run: mise exec -- vale {staged_files}
+
+# A safety net for commits made without the pre-commit hook (--no-verify,
+# GUI clients, an older checkout). Checks rather than autofixes: rewriting
+# files that are about to be pushed would silently diverge from what was
+# reviewed in the commit. `{push_files}` scopes both format and lint to what
+# this push actually introduces, not fluidity's full pre-existing docs tree.
+pre-push:
+  piped: true
+  exclude:
+    - ".agents/**"
+    - ".claude/**"
+  jobs:
+    - name: rumdl-format-check
+      glob: "*.{md,mdx}"
+      run: mise exec -- rumdl fmt --check {push_files}
+    - name: rumdl-lint
+      glob: "*.{md,mdx}"
+      run: mise exec -- rumdl check {push_files}
+    - name: vale
+      glob: "*.{md,mdx}"
+      run: mise exec -- vale {push_files}

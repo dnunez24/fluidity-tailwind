@@ -5,37 +5,47 @@ sidebar:
   order: 2
 ---
 
-Every fluidity utility is available in three curve variants—linear, exponential, and logarithmic—each with a different ease function that transforms progress into a value. All three share identical endpoints (min at progress 0, max at progress 1), but diverge in between.
+Every fluidity utility is available in three curve variants—linear, exponential, and logarithmic—each with a different ease function that transforms progress into a value.
+All three share identical endpoints (min at progress 0, max at progress 1), but diverge in between.
 
 ## Linear (no prefix)
 
-```
+```text
 ease(t) = t
 ```
 
-Progress maps directly to the value range. The value changes at a constant rate across the axis range. Use this when you want a straightforward proportional scale.
+Progress maps directly to the value range.
+The value changes at a constant rate across the axis range.
+Use this when you want a straightforward proportional scale.
 
 Example: `f6y-p-2/8` padding scales from 0.5rem to 2rem at a constant rate.
 
 ## Exponential (`exp-` prefix)
 
-```
+```text
 ease(t) = (base^t - 1) / (base - 1)
 ```
 
-Starts slow and accelerates. The value barely moves near the lower bound, then ramps hard as the axis approaches the upper bound. This is useful for properties that should respond subtly on small viewports and aggressively on large ones.
+Starts slow and accelerates.
+The value barely moves near the lower bound, then ramps hard as the axis approaches the upper bound.
+This is useful for properties that should respond subtly on small viewports and aggressively on large ones.
 
 Example: `f6y-exp-p-2/8` padding stays near 0.5rem on mobile, then shoots toward 2rem on desktop.
 
-Default base is `--f6y-base: 2`. Higher bases (e.g., 4, 8) make the curve sharper—more of the range stays compressed near the lower bound. Lower bases (e.g., 1.5) flatten the curve.
+Default base is `--f6y-base: 2`.
+Higher bases (e.g., 4, 8) make the curve sharper—more of the range stays compressed near the lower bound.
+Lower bases (e.g., 1.5) flatten the curve.
 
 ## Logarithmic (`log-` prefix)
 
-```
+```text
 ease(t) = log(1 + (base - 1) × t, base)
 ```
 
-The exact inverse of exponential. Starts fast and decelerates. The value climbs quickly near the lower bound, then levels off as it approaches the upper bound. Use this when a property should move aggressively on small viewports and plateau on large ones.
+The exact inverse of exponential.
+Starts fast and decelerates.
+The value climbs quickly near the lower bound, then levels off as it approaches the upper bound.
+Use this when a property should move aggressively on small viewports and plateau on large ones.
 
 Example: `f6y-log-p-2/8` padding jumps from 0.5rem quickly, then approaches 2rem more gradually on larger viewports.
 
@@ -43,7 +53,8 @@ Like exponential, the curve sharpness is controlled by `--f6y-base`.
 
 ## Side-by-side comparison
 
-Resize the container below to see how the three curves diverge. All three use identical min (0.5rem) and max (2rem) bounds, but the padding value follows a different path between them.
+Resize the container below to see how the three curves diverge.
+All three use identical min (0.5rem) and max (2rem) bounds, but the padding value follows a different path between them.
 
 <div class="f6y-demo">
   <p class="f6y-demo-hint">Drag the corner to resize this container →</p>
@@ -62,7 +73,9 @@ Resize the container below to see how the three curves diverge. All three use id
 
 ## Endpoints
 
-All three curves meet at progress 0 (where value = min) and progress 1 (where value = max), regardless of base. Swapping `f6y-p-2/8` for `f6y-exp-p-2/8` changes nothing at the viewport boundaries; only the path in between changes. This makes curves safe to swap mid-project.
+All three curves meet at progress 0 (where value = min) and progress 1 (where value = max), regardless of base.
+Swapping `f6y-p-2/8` for `f6y-exp-p-2/8` changes nothing at the viewport boundaries; only the path in between changes.
+This makes curves safe to swap mid-project.
 
 <CardGroup cols={2}>
   <Card title="Configuration" href="/concepts/configuration" icon="sliders">

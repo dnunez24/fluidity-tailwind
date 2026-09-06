@@ -5,39 +5,40 @@ sidebar:
   order: 1
 ---
 
-Fluidity provides eighteen fluid spacing utilities across two groups: nine for padding and nine for margin. Each ships in all three curve variants (linear, `exp-`, `log-`) and works with any Tailwind variant.
+Fluidity provides eighteen fluid spacing utilities across two groups: nine for padding and nine for margin.
+Each ships in all three curve variants (linear, `exp-`, `log-`) and works with any Tailwind variant.
 
 ## Padding utilities
 
 Control padding on all sides and individual edges:
 
-| Utility | CSS Property |
-|---------|--------------|
-| `f6y-p` | `padding` (all sides) |
-| `f6y-px` | `padding-inline` |
-| `f6y-py` | `padding-block` |
+| Utility  | CSS Property           |
+| -------- | ---------------------- |
+| `f6y-p`  | `padding` (all sides)  |
+| `f6y-px` | `padding-inline`       |
+| `f6y-py` | `padding-block`        |
 | `f6y-ps` | `padding-inline-start` |
-| `f6y-pe` | `padding-inline-end` |
-| `f6y-pt` | `padding-top` |
-| `f6y-pr` | `padding-right` |
-| `f6y-pb` | `padding-bottom` |
-| `f6y-pl` | `padding-left` |
+| `f6y-pe` | `padding-inline-end`   |
+| `f6y-pt` | `padding-top`          |
+| `f6y-pr` | `padding-right`        |
+| `f6y-pb` | `padding-bottom`       |
+| `f6y-pl` | `padding-left`         |
 
 ## Margin utilities
 
 Control margin on all sides and individual edges:
 
-| Utility | CSS Property |
-|---------|--------------|
-| `f6y-m` | `margin` (all sides) |
-| `f6y-mx` | `margin-inline` |
-| `f6y-my` | `margin-block` |
+| Utility  | CSS Property          |
+| -------- | --------------------- |
+| `f6y-m`  | `margin` (all sides)  |
+| `f6y-mx` | `margin-inline`       |
+| `f6y-my` | `margin-block`        |
 | `f6y-ms` | `margin-inline-start` |
-| `f6y-me` | `margin-inline-end` |
-| `f6y-mt` | `margin-top` |
-| `f6y-mr` | `margin-right` |
-| `f6y-mb` | `margin-bottom` |
-| `f6y-ml` | `margin-left` |
+| `f6y-me` | `margin-inline-end`   |
+| `f6y-mt` | `margin-top`          |
+| `f6y-mr` | `margin-right`        |
+| `f6y-mb` | `margin-bottom`       |
+| `f6y-ml` | `margin-left`         |
 
 ## Value forms
 
@@ -49,7 +50,8 @@ Both padding and margin utilities use the `spacing` value kind, which accepts sp
 - **Min only** (no max): `f6y-p-2` → ramps from `0.5rem` to `0.5rem * ratio` (default `1rem`, 2× multiplier)
 - **Bare** (value omitted): `f6y-p` → ramps from the spacing default `1rem` to `2rem` (the default `--spacing(4)` through its 2× ratio)
 
-The spacing scale maps numbers to lengths — `2` is `0.5rem`, `4` is `1rem`, `8` is `2rem`, etc. Arbitrary values use CSS length units (`rem`, `px`, `%`, etc.) and can be percentages.
+The spacing scale maps numbers to lengths — `2` is `0.5rem`, `4` is `1rem`, `8` is `2rem`, etc.
+Arbitrary values use CSS length units (`rem`, `px`, `%`, etc.) and can be percentages.
 
 ## Live demo
 

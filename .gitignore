@@ -3,3 +3,11 @@ node_modules/
 *.log
 .blume/
 dist/
+
+# `vale sync` downloads these from Packages in .vale.ini; only the
+# hand-authored vocabulary under config/vocabularies/ is tracked, not synced
+# package content like Deslop's config/scripts/ Tengo scripts.
+.vale/styles/*
+!.vale/styles/config/
+.vale/styles/config/*
+!.vale/styles/config/vocabularies/

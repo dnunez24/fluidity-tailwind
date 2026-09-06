@@ -6,14 +6,15 @@ sidebar:
   order: 1
 ---
 
-Fluidity needs **Tailwind CSS v4**. There's no config file, no build step of its own, and no JavaScript — it's a stylesheet of `@utility` rules that Tailwind compiles like any other utility.
+Fluidity needs **Tailwind CSS v4**.
+There's no config file, no build step of its own, and no JavaScript — it's a stylesheet of `@utility` rules that Tailwind compiles like any other utility.
 
 ## Install and import
 
 <Steps>
   <Step title="Install fluidity">
     ```package-install
-    npm install fluidity-css
+    npm install fluidity-tailwind
     ```
   </Step>
   <Step title="Import it after Tailwind">
@@ -37,7 +38,9 @@ Fluidity needs **Tailwind CSS v4**. There's no config file, no build step of its
 
 ## See it move
 
-Every fluid utility reads `--f6y-axis` — `100vw` by default — to know where it is along the ramp. Point it at this container instead of the viewport with `f6y-axis-cqi`, and set a shorter range with `f6y-lower-*`/`f6y-upper-*` so the box below visibly changes size within the width of this page. Drag the bottom-right corner to resize it — no JavaScript, just CSS `resize` and `container-type`:
+Every fluid utility reads `--f6y-axis` — `100vw` by default — to know where it is along the ramp.
+Point it at this container instead of the viewport with `f6y-axis-cqi`, and set a shorter range with `f6y-lower-*`/`f6y-upper-*` so the box below visibly changes size within the width of this page.
+Drag the bottom-right corner to resize it — no JavaScript, just CSS `resize` and `container-type`:
 
 <div class="f6y-demo">
   <p class="f6y-demo-hint">Drag the corner to resize this container →</p>
@@ -56,7 +59,8 @@ Every fluid utility reads `--f6y-axis` — `100vw` by default — to know where 
 </div>
 ```
 
-`f6y-axis-cqi`, `f6y-lower-*`, and `f6y-upper-*` are themselves fluidity utilities — they set the `--f6y-axis`, `--f6y-lower`, and `--f6y-upper` custom properties that every fluid utility beneath them inherits. See [Configuration](/concepts/configuration) for the full list.
+`f6y-axis-cqi`, `f6y-lower-*`, and `f6y-upper-*` are themselves fluidity utilities — they set the `--f6y-axis`, `--f6y-lower`, and `--f6y-upper` custom properties that every fluid utility beneath them inherits.
+See [Configuration](/concepts/configuration) for the full list.
 
 ## Value syntax
 

@@ -18,7 +18,7 @@
 @source not "README.md";
 @source not "scripts";
 
-@import "fluidity-css";
+@import "fluidity-tailwind";
 
 /* Demo blocks set their own bounds with real fluidity utilities, scoped to
  * this container rather than the viewport, so resizing `.f6y-demo` (native

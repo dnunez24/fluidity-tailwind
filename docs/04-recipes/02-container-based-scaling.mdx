@@ -5,7 +5,8 @@ sidebar:
   order: 2
 ---
 
-A reusable card component needs to look right in every layout — 1-column mobile, 2-column tablet, 3-column desktop grid. Rather than writing per-breakpoint overrides for each grid context, set the card's bounds to scale off its own container width using `f6y-axis-cqi`, so the same card adapts automatically.
+A reusable card component needs to look right in every layout — 1-column mobile, 2-column tablet, 3-column desktop grid.
+Rather than writing per-breakpoint overrides for each grid context, set the card's bounds to scale off its own container width using `f6y-axis-cqi`, so the same card adapts automatically.
 
 ## The pattern
 
@@ -24,15 +25,19 @@ Wrap the card in a container, then use `f6y-axis-cqi` on the card root to measur
 </div>
 ```
 
-`f6y-axis-cqi` tells fluidity to use container query inline size (`cqi`) as the axis instead of viewport width (`vw`). `f6y-lower-*` and `f6y-upper-*` set the ramp range: padding and text grow smoothly as the card's container grows from 12rem to 48rem. Use the same card class in a mobile column (12rem) or a desktop grid column (48rem+), and padding and text scale independently to fit each one.
+`f6y-axis-cqi` tells fluidity to use container query inline size (`cqi`) as the axis instead of viewport width (`vw`).
+`f6y-lower-*` and `f6y-upper-*` set the ramp range: padding and text grow smoothly as the card's container grows from 12rem to 48rem.
+Use the same card class in a mobile column (12rem) or a desktop grid column (48rem+), and padding and text scale independently to fit each one.
 
 :::note
-The parent element needs `@container` (Tailwind's container utility) to enable container queries. Without it, `cqi` has no container to query and resolves to zero.
+The parent element needs `@container` (Tailwind's container utility) to enable container queries.
+Without it, `cqi` has no container to query and resolves to zero.
 :::
 
 ## Live demo
 
-Two `.f6y-demo` containers at different widths, each holding an identical card. Drag the resize handles to see the card adapt independently to each container's size:
+Two `.f6y-demo` containers at different widths, each holding an identical card.
+Drag the resize handles to see the card adapt independently to each container's size:
 
 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin: 1.5rem 0;">
   <div>
@@ -81,10 +86,13 @@ Both cards use identical classes (`f6y-p-2/4 f6y-axis-cqi f6y-lower-[12rem] f6y-
 </div>
 ```
 
-The outer grid uses Tailwind's breakpoint variants to set column count. Each grid cell is a `@container` so its child card can measure the column width with `cqi` — no per-breakpoint card overrides needed.
+The outer grid uses Tailwind's breakpoint variants to set column count.
+Each grid cell is a `@container` so its child card can measure the column width with `cqi` — no per-breakpoint card overrides needed.
 
 ## Why it works
 
-Container query units decouple a component from the viewport. A card in a sidebar (narrow) and a card in a main grid (wide) can use the exact same fluid utility classes because `cqi` measures each card's own ancestor container, not the viewport. The result: component-first responsive design with no context-specific class overrides.
+Container query units decouple a component from the viewport.
+A card in a sidebar (narrow) and a card in a main grid (wide) can use the exact same fluid utility classes because `cqi` measures each card's own ancestor container, not the viewport.
+The result: component-first responsive design with no context-specific class overrides.
 
 See [Configuration](/concepts/configuration) for other axis choices (viewport units, container query dimensions, and logical directions).

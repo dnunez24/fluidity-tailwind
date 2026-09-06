@@ -1,49 +1,49 @@
 {
-  "name": "fluidity-css",
-  "version": "0.1.0",
-  "description": "Fluid UI scaling utilities for Tailwind CSS v4 — linear, exponential and logarithmic clamp-based scaling for every sizing and spacing utility.",
-  "keywords": [
-    "tailwindcss",
-    "tailwind",
-    "tailwind-plugin",
-    "css",
-    "fluid-typography",
-    "fluid-design",
-    "responsive",
-    "clamp"
-  ],
-  "license": "MIT",
-  "author": "Dave Nuñez <dave.nunez@alumni.stanford.edu> (https://davidanunez.com/)",
-  "style": "index.css",
-  "exports": {
-    ".": "./index.css",
-    "./index.css": "./index.css",
-    "./package.json": "./package.json"
-  },
-  "files": [
-    "index.css",
-    "README.md",
-    "LICENSE"
-  ],
-  "sideEffects": [
-    "*.css"
-  ],
-  "scripts": {
-    "build": "node scripts/build-css.mjs && npm run build:examples",
-    "build:check": "node scripts/build-css.mjs --check",
-    "build:examples": "tailwindcss -i examples/src/coverage.css -o examples/dist/coverage.css && tailwindcss -i examples/src/kitchen-sink.css -o examples/dist/kitchen-sink.css",
-    "test": "npm run build:check",
-    "docs:reference": "node scripts/build-docs-reference.mjs",
-    "docs:dev": "npm run docs:reference && blume dev",
-    "docs:build": "npm run docs:reference && blume build",
-    "docs:preview": "blume preview"
-  },
-  "devDependencies": {
-    "@tailwindcss/cli": "^4.3.3",
-    "blume": "^1.6.2",
-    "fluidity-css": "file:."
-  },
-  "peerDependencies": {
-    "tailwindcss": "^4.0.0"
-  }
+	"name": "fluidity-tailwind",
+	"version": "0.1.0",
+	"description": "Fluid UI scaling utilities for Tailwind CSS v4. Linear, exponential and logarithmic clamp-based scaling for every sizing and spacing utility.",
+	"keywords": [
+		"tailwindcss",
+		"tailwind",
+		"tailwind-plugin",
+		"css",
+		"fluid-typography",
+		"fluid-design",
+		"responsive",
+		"clamp"
+	],
+	"license": "MIT",
+	"author": "Dave Nuñez <dave.nunez@alumni.stanford.edu>",
+	"style": "index.css",
+	"exports": {
+		".": "./index.css",
+		"./index.css": "./index.css",
+		"./package.json": "./package.json"
+	},
+	"files": [
+		"index.css",
+		"README.md",
+		"LICENSE"
+	],
+	"sideEffects": [
+		"*.css"
+	],
+	"scripts": {
+		"build": "node scripts/build-css.mjs && npm run build:examples",
+		"build:check": "node scripts/build-css.mjs --check",
+		"build:examples": "tailwindcss -i examples/src/coverage.css -o examples/dist/coverage.css && tailwindcss -i examples/src/kitchen-sink.css -o examples/dist/kitchen-sink.css",
+		"test": "npm run build:check",
+		"docs:reference": "node scripts/build-docs-reference.mjs",
+		"docs:dev": "npm run docs:reference && blume dev",
+		"docs:build": "npm run docs:reference && blume build",
+		"docs:preview": "blume preview"
+	},
+	"devDependencies": {
+		"@tailwindcss/cli": "^4.3.3",
+		"blume": "^1.6.2",
+		"fluidity-tailwind": "file:."
+	},
+	"peerDependencies": {
+		"tailwindcss": "^4.0.0"
+	}
 }

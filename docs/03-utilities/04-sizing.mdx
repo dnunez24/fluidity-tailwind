@@ -5,7 +5,8 @@ sidebar:
   order: 4
 ---
 
-The Sizing group controls dimensions: width, height, min/max bounds, and flex basis. All use kind `sizing`, which accepts spacing-scale numbers (`4`, `16`), container breakpoint keys (`sm`, `md`, `xl`), or arbitrary values.
+The Sizing group controls dimensions: width, height, min/max bounds, and flex basis.
+All use kind `sizing`, which accepts spacing-scale numbers (`4`, `16`), container breakpoint keys (`sm`, `md`, `xl`), or arbitrary values.
 
 ## Width and height
 
@@ -28,7 +29,8 @@ All default to `--spacing(16)` (4rem) when bare.
 
 - `f6y-basis-<min>[/<max>]` – flex basis (CSS `flex-basis`)
 
-**Important:** `flex-basis` only takes effect inside a flex or inline-flex container. Wrap your element in `class="flex"` or `class="inline-flex"`:
+**Important:** `flex-basis` only takes effect inside a flex or inline-flex container.
+Wrap your element in `class="flex"` or `class="inline-flex"`:
 
 ```html
 <div class="flex gap-2">
@@ -63,11 +65,13 @@ Sizing accepts the same value syntax as all fluidity utilities:
   </div>
 </div>
 
-The box's width ramps from 2rem to 6rem as the container grows from 16rem to 48rem. Since the demo container has a minimum resizable width around 12rem, the box never overflows.
+The box's width ramps from 2rem to 6rem as the container grows from 16rem to 48rem.
+Since the demo container has a minimum resizable width around 12rem, the box never overflows.
 
 ## Curve variants
 
-All sizing utilities ship in linear, exponential (`exp-`), and logarithmic (`log-`) curves. Swap `f6y-w-8/24` for `f6y-exp-w-8/24` to ease width growth at the start, or `f6y-log-w-8/24` for ease-out — the bounds stay the same, only the path between them changes.
+All sizing utilities ship in linear, exponential (`exp-`), and logarithmic (`log-`) curves.
+Swap `f6y-w-8/24` for `f6y-exp-w-8/24` to ease width growth at the start, or `f6y-log-w-8/24` for ease-out — the bounds stay the same, only the path between them changes.
 
 ## Tailwind variants
 

@@ -6,21 +6,23 @@ sidebar:
   order: 0
 ---
 
-Fluidity ships 279 `@utility` rules across 11 property groups, listed below. Every one of them follows the same three rules, so once you've used one you've used them all.
+Fluidity ships 279 `@utility` rules across 11 property groups, listed below.
+Every one of them follows the same three rules, so once you've used one you've used them all.
 
 ## One value syntax, everywhere
 
-Every fluid utility is `f6y-<curve-ns><name>-<min>[/<max>]`, and `<min>[/<max>]` accepts the same shapes Tailwind's own utilities do — spacing-scale numbers, theme keys, or arbitrary values, mixed freely. What differs between property groups is only which **kind** of value the bounds resolve through:
+Every fluid utility is `f6y-<curve-ns><name>-<min>[/<max>]`, and `<min>[/<max>]` accepts the same shapes Tailwind's own utilities do — spacing-scale numbers, theme keys, or arbitrary values, mixed freely.
+What differs between property groups is only which **kind** of value the bounds resolve through:
 
-| Kind | Used by | Accepts | Bare (`f6y-p` with no value) falls back to |
-| --- | --- | --- | --- |
-| `spacing` | padding, margin, gap, space-between, position, scroll-margin, scroll-padding, indent | spacing-scale numbers (`4`, `2.5`) or arbitrary `[length]`/`[percentage]` | `--spacing(4)` (1rem) |
-| `sizing` | width, height, size, min/max-width/height, basis | spacing-scale numbers, `--container-*` keys, or arbitrary values | `--spacing(16)` (4rem) |
-| `fontSize` | `text` | `--text-*` keys or arbitrary values | `var(--text-base)` (1rem) |
-| `leading` | `leading` | spacing-scale numbers, `--leading-*` keys, or arbitrary values | `--spacing(6)` (1.5rem) |
-| `tracking` | `tracking` | `--tracking-*` keys or arbitrary values | `var(--tracking-normal)` (`0em`) |
-| `radius` | `rounded` and every corner | `--radius-*` keys or arbitrary values | `var(--radius-md)` (0.375rem) |
-| `lineWidth` | border and outline widths | px counts (like `border-2` → `2px`) or arbitrary `[length]` | `1px` |
+| Kind        | Used by                                                                              | Accepts                                                                   | Bare (`f6y-p` with no value) falls back to |
+| ----------- | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------- | ------------------------------------------ |
+| `spacing`   | padding, margin, gap, space-between, position, scroll-margin, scroll-padding, indent | spacing-scale numbers (`4`, `2.5`) or arbitrary `[length]`/`[percentage]` | `--spacing(4)` (1rem)                      |
+| `sizing`    | width, height, size, min/max-width/height, basis                                     | spacing-scale numbers, `--container-*` keys, or arbitrary values          | `--spacing(16)` (4rem)                     |
+| `fontSize`  | `text`                                                                               | `--text-*` keys or arbitrary values                                       | `var(--text-base)` (1rem)                  |
+| `leading`   | `leading`                                                                            | spacing-scale numbers, `--leading-*` keys, or arbitrary values            | `--spacing(6)` (1.5rem)                    |
+| `tracking`  | `tracking`                                                                           | `--tracking-*` keys or arbitrary values                                   | `var(--tracking-normal)` (`0em`)           |
+| `radius`    | `rounded` and every corner                                                           | `--radius-*` keys or arbitrary values                                     | `var(--radius-md)` (0.375rem)              |
+| `lineWidth` | border and outline widths                                                            | px counts (like `border-2` → `2px`) or arbitrary `[length]`               | `1px`                                      |
 
 Whatever the kind, the same five value forms are always available:
 
@@ -36,7 +38,8 @@ See [How it works](/concepts/how-it-works) for the derivation, or the [utility i
 
 ## Three curves, no exceptions
 
-Every one of the 88 base utilities below ships in linear (no prefix), `exp-`, and `log-` variants — 264 classes, none of which are documented separately per family, since the curve namespace works identically everywhere. See [Curves](/concepts/curves).
+Every one of the 88 base utilities below ships in linear (no prefix), `exp-`, and `log-` variants — 264 classes, none of which are documented separately per family, since the curve namespace works identically everywhere.
+See [Curves](/concepts/curves).
 
 ## Any Tailwind variant
 

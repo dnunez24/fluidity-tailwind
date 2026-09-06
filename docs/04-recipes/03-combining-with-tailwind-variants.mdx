@@ -6,7 +6,8 @@ sidebar:
   order: 3
 ---
 
-Fluidity utilities compile to ordinary Tailwind `@utility` rules, so they work with any built-in Tailwind variant — dark mode, hover states, focus rings, breakpoint overrides, and more. Layer static fallbacks, mode-specific ramps, or breakpoint caps on top of fluid behavior.
+Fluidity utilities compile to ordinary Tailwind `@utility` rules, so they work with any built-in Tailwind variant — dark mode, hover states, focus rings, breakpoint overrides, and more.
+Layer static fallbacks, mode-specific ramps, or breakpoint caps on top of fluid behavior.
 
 ## Dark mode
 
@@ -24,7 +25,8 @@ Use `dark:f6y-*` to apply a different fluid ramp (or a static value) when dark m
 </div>
 ```
 
-`dark:f6y-p-4/10` overrides `f6y-p-2/8` in dark mode, so the padding ramps from 1rem to 2.5rem instead. If the dark mode padding doesn't need to be fluid, use `dark:p-6` (a static Tailwind utility) alongside the fluid class.
+`dark:f6y-p-4/10` overrides `f6y-p-2/8` in dark mode, so the padding ramps from 1rem to 2.5rem instead.
+If the dark mode padding doesn't need to be fluid, use `dark:p-6` (a static Tailwind utility) alongside the fluid class.
 
 ## Hover and interaction states
 
@@ -36,7 +38,9 @@ Apply a different ramp on `:hover`, `:focus`, or other interactive states:
 </button>
 ```
 
-The gap ramps from 0.5rem–2rem at rest, then 1rem–3rem on hover. The `transition-[gap]` utility animates the gap smoothly — note that the gap only changes when the element is hovered or the window resizes, not continuously. Fluidity doesn't animate gaps on its own; the transition utility does.
+The gap ramps from 0.5rem–2rem at rest, then 1rem–3rem on hover.
+The `transition-[gap]` utility animates the gap smoothly — note that the gap only changes when the element is hovered or the window resizes, not continuously.
+Fluidity doesn't animate gaps on its own; the transition utility does.
 
 Another example with padding:
 
@@ -88,8 +92,11 @@ Tailwind evaluates variants in a specific precedence (media queries, then state 
 
 ## Why it works
 
-Every fluidity utility is a Tailwind `@utility` rule with no special syntax or restrictions. Tailwind's variant system treats `f6y-p-2/8` the same way it treats `p-4` or `gap-2` — the variant modifier wraps the utility's CSS declaration. Dark mode, hover, focus, breakpoints, and any other built-in variant work without modification.
+Every fluidity utility is a Tailwind `@utility` rule with no special syntax or restrictions.
+Tailwind's variant system treats `f6y-p-2/8` the same way it treats `p-4` or `gap-2` — the variant modifier wraps the utility's CSS declaration.
+Dark mode, hover, focus, breakpoints, and any other built-in variant work without modification.
 
-The only special consideration: interactive states (hover, focus, active) that toggle fluidity's values need a CSS transition to animate smoothly. If the transition is omitted, the value jumps instantly between states on resize or state change.
+The only special consideration: interactive states (hover, focus, active) that toggle fluidity's values need a CSS transition to animate smoothly.
+If the transition is omitted, the value jumps instantly between states on resize or state change.
 
 See [Utilities](/utilities) for examples of every utility family and their value syntax.

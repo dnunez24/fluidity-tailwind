@@ -6,13 +6,16 @@ sidebar:
   order: 6
 ---
 
-The Borders & Radius group provides fluid control over corner rounding and stroke widths. Every utility ships in linear, `exp-`, and `log-` variants and works with all Tailwind variants (`md:`, `hover:`, `dark:`, etc.).
+The Borders & Radius group provides fluid control over corner rounding and stroke widths.
+Every utility ships in linear, `exp-`, and `log-` variants and works with all Tailwind variants (`md:`, `hover:`, `dark:`, etc.).
 
 ## `rounded` — border-radius
 
-Maps to `border-radius` using the `radius` kind, which accepts `--radius-*` theme keys or arbitrary values. Bare `f6y-rounded` defaults to `var(--radius-md)` (0.375rem).
+Maps to `border-radius` using the `radius` kind, which accepts `--radius-*` theme keys or arbitrary values.
+Bare `f6y-rounded` defaults to `var(--radius-md)` (0.375rem).
 
-The base `rounded` sets all four corners. Add edge or corner suffixes to target specific corners:
+The base `rounded` sets all four corners.
+Add edge or corner suffixes to target specific corners:
 
 - **Edges** (both corners on that edge): `t` (top), `r` (right), `b` (bottom), `l` (left)
 - **Logical edges** (independent of text direction): `s` (start, both start corners), `e` (end, both end corners)
@@ -48,7 +51,8 @@ See the demo below — a box's corner radius grows as its container widens:
 
 ## Border width — `border`, `border-x`, `border-y`, and corners
 
-Maps to `border-width` variants using the `lineWidth` kind. Accepts px counts (like Tailwind's `border-2` → `2px`) or arbitrary values.
+Maps to `border-width` variants using the `lineWidth` kind.
+Accepts px counts (like Tailwind's `border-2` → `2px`) or arbitrary values.
 
 - `border` — all sides
 - `border-x` — left and right
@@ -68,10 +72,12 @@ Bare `f6y-border` defaults to `1px`.
 
 ## Outline width — `outline` and offset
 
-Maps to `outline-width` and `outline-offset` using the `lineWidth` kind for widths, `spacing` kind for offset. Widths accept px counts or arbitrary values; offset accepts spacing-scale numbers or arbitrary values.
+Maps to `outline-width` and `outline-offset` using the `lineWidth` kind for widths, `spacing` kind for offset.
+Widths accept px counts or arbitrary values; offset accepts spacing-scale numbers or arbitrary values.
 
 :::note
-The `lineWidth` kind is unique: bare numbers represent pixel counts (e.g. `border-2` → `2px`), not spacing-scale multiples. This matches Tailwind's own border/outline conventions.
+The `lineWidth` kind is unique: bare numbers represent pixel counts (e.g. `border-2` → `2px`), not spacing-scale multiples.
+This matches Tailwind's own border/outline conventions.
 :::
 
 ```html
@@ -100,4 +106,5 @@ See the demo below — a box's border grows as its container widens:
 </div>
 ```
 
-Each border and radius utility inherits its axis and bounds from parent [configuration utilities](/concepts/configuration). Adjust the scale within a subtree by setting `f6y-lower-*` and `f6y-upper-*` on a container.
+Each border and radius utility inherits its axis and bounds from parent [configuration utilities](/concepts/configuration).
+Adjust the scale within a subtree by setting `f6y-lower-*` and `f6y-upper-*` on a container.

@@ -5,33 +5,38 @@ sidebar:
   order: 2
 ---
 
-Fluidity provides five fluid spacing utilities for controlling space in layouts: three gap utilities for flexbox and grid, and two space-between utilities for direct child spacing. Both groups use the `spacing` value kind and ship in all three curve variants.
+Fluidity provides five fluid spacing utilities for controlling space in layouts: three gap utilities for flexbox and grid, and two space-between utilities for direct child spacing.
+Both groups use the `spacing` value kind and ship in all three curve variants.
 
 ## Gap utilities
 
 The gap utilities control the space between grid cells and flex items:
 
-| Utility | CSS Property | Effect |
-|---------|--------------|--------|
-| `f6y-gap` | `gap` | Horizontal and vertical gap |
+| Utility     | CSS Property | Effect                        |
+| ----------- | ------------ | ----------------------------- |
+| `f6y-gap`   | `gap`        | Horizontal and vertical gap   |
 | `f6y-gap-x` | `column-gap` | Horizontal gap only (columns) |
-| `f6y-gap-y` | `row-gap` | Vertical gap only (rows) |
+| `f6y-gap-y` | `row-gap`    | Vertical gap only (rows)      |
 
-These work identically to Tailwind's own `gap-*`, `gap-x-*`, and `gap-y-*` utilities, but with fluid ramps instead of static values. Use them on flex and grid containers.
+These work identically to Tailwind's own `gap-*`, `gap-x-*`, and `gap-y-*` utilities, but with fluid ramps instead of static values.
+Use them on flex and grid containers.
 
 ## Space-between utilities
 
 The space-between utilities add margin to every direct child *except the last*, creating even spacing without needing gaps:
 
-| Utility | CSS Property (applied via) | Effect |
-|---------|-------------|--------|
+| Utility       | CSS Property (applied via)               | Effect                            |
+| ------------- | ---------------------------------------- | --------------------------------- |
 | `f6y-space-x` | `margin-inline-end` (on direct children) | Horizontal space between siblings |
-| `f6y-space-y` | `margin-block-end` (on direct children) | Vertical space between siblings |
+| `f6y-space-y` | `margin-block-end` (on direct children)  | Vertical space between siblings   |
 
-Space-between utilities apply via the `:where(& > :not(:last-child))` pseudo-class selector. This means only the **direct children except the last** receive the margin. The last child gets no margin, preventing unwanted trailing space.
+Space-between utilities apply via the `:where(& > :not(:last-child))` pseudo-class selector.
+This means only the **direct children except the last** receive the margin.
+The last child gets no margin, preventing unwanted trailing space.
 
 :::note
-Unlike Tailwind's own `space-x-*` and `space-y-*`, fluidity's space-between utilities do **not** have a `-reverse` variant. For reversed direction, apply the utility to a flex or grid container with `flex-row-reverse` or `grid-auto-flow: column-reverse` instead.
+Unlike Tailwind's own `space-x-*` and `space-y-*`, fluidity's space-between utilities do **not** have a `-reverse` variant.
+For reversed direction, apply the utility to a flex or grid container with `flex-row-reverse` or `grid-auto-flow: column-reverse` instead.
 :::
 
 ## Value forms
