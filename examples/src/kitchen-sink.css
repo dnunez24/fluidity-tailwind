@@ -1,0 +1,4 @@
+/*! Kitchen sink demo stylesheet. Compiles to examples/dist/kitchen-sink.css. */
+@import "tailwindcss" source(none);
+@import "../../index.css";
+@source "../kitchen-sink.html";

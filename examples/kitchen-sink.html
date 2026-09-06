@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>fluidity — kitchen sink</title>
+<link rel="stylesheet" href="./dist/kitchen-sink.css">
+<style>
+  /* Demo chrome only — never part of the shipped library. */
+  :root { color-scheme: light; }
+  body { font-family: ui-sans-serif, system-ui, sans-serif; color: #0f172a; background: #f8fafc; }
+  h1 { font-size: 1.5rem; font-weight: 700; }
+  h2 { font-size: 1.125rem; font-weight: 700; margin-top: 0; }
+  h3 { font-size: 0.9375rem; font-weight: 600; }
+  section { border-top: 1px solid #e2e8f0; padding-block: 2rem; }
+  section > p.blurb { color: #475569; max-width: 60ch; }
+  code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85em; background: #e2e8f0; padding: 0.1em 0.35em; border-radius: 0.25em; }
+  .demo { position: relative; border: 1px solid #cbd5e1; border-radius: 0.5rem; background: #fff; padding: 1rem; overflow: visible; }
+  .swatch { background: #6366f1; color: #fff; }
+  .swatch-alt { background: #0ea5e9; color: #fff; }
+  .swatch-warm { background: #f97316; color: #fff; }
+  .box { display: inline-flex; align-items: center; justify-content: center; min-width: 2rem; min-height: 2rem; }
+  .label { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.75rem; color: #475569; margin-bottom: 0.375rem; display: block; }
+  .readout { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.7rem; color: #fff; background: #0f172a; border-radius: 0.25rem; padding: 0.05rem 0.35rem; display: inline-block; margin-top: 0.375rem; white-space: nowrap; }
+  .cell { position: relative; }
+  .grid-demo { display: grid; grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); gap: 1.5rem; }
+  .track { background: repeating-linear-gradient(90deg, #f1f5f9 0 2rem, #e2e8f0 2rem 4rem); border: 1px dashed #94a3b8; overflow: visible; }
+  .resizer { resize: inline; overflow: auto; border: 2px dashed #6366f1; padding: 0.5rem; min-inline-size: 8rem; max-inline-size: 100%; container-type: inline-size; }
+  .carousel { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; border: 1px solid #cbd5e1; border-radius: 0.5rem; background: #fff; }
+  .carousel > div { scroll-snap-align: start; flex: none; width: 60%; background: #6366f1; color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 600; }
+  .carousel > div:nth-child(even) { background: #0ea5e9; }
+  header.top { position: sticky; top: 0; z-index: 10; background: #0f172a; color: #fff; padding: 0.75rem 1.5rem; display: flex; justify-content: space-between; align-items: center; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.8rem; }
+  main { max-width: 72rem; margin-inline: auto; padding-inline: 1.5rem; }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <span>fluidity kitchen sink</span>
+  <span>viewport: <b id="vw-readout">–</b> px</span>
+</header>
+
+<main>
+
+<section>
+  <h1>Fluidity</h1>
+  <p class="blurb">
+    Every box below is styled with a real <code>f6y-*</code> utility from <code>index.css</code> —
+    nothing here is hand-tuned per breakpoint. Resize the browser window (or the dashed
+    resizer handles) to watch values interpolate live. Each label shows the class applied and
+    the computed pixel value read straight from <code>getComputedStyle</code>.
+  </p>
+</section>
+
+<section>
+  <h2>Curves: linear, exponential, logarithmic</h2>
+  <p class="blurb">
+    Same <code>2 → 8</code> spacing range, three easing curves. Linear ramps evenly;
+    <code>exp-</code> stays small early and accelerates near the upper bound;
+    <code>log-</code> jumps early and flattens out. All three meet exactly at the endpoints.
+  </p>
+  <div class="grid-demo">
+    <div class="demo">
+      <span class="label">f6y-p-2/8</span>
+      <div class="cell"><div class="f6y-p-2/8 swatch box" data-watch data-prop="padding-top">lin</div></div>
+    </div>
+    <div class="demo">
+      <span class="label">f6y-exp-p-2/8</span>
+      <div class="cell"><div class="f6y-exp-p-2/8 swatch-alt box" data-watch data-prop="padding-top">exp</div></div>
+    </div>
+    <div class="demo">
+      <span class="label">f6y-log-p-2/8</span>
+      <div class="cell"><div class="f6y-log-p-2/8 swatch-warm box" data-watch data-prop="padding-top">log</div></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Padding &amp; margin</h2>
+  <p class="blurb">Fluid on every edge and logical axis. Min defaults to <code>--spacing(4)</code>; omitting the modifier derives max as <code>min × ratio</code> (default 2×).</p>
+  <div class="grid-demo">
+    <div class="demo">
+      <span class="label">f6y-p-2/8 (padding, all sides)</span>
+      <div class="cell"><div class="f6y-p-2/8 swatch box" data-watch data-prop="padding-top">pad</div></div>
+    </div>
+    <div class="demo">
+      <span class="label">f6y-px-4/16 (padding-inline)</span>
+      <div class="cell"><div class="f6y-px-4/16 swatch box" data-watch data-prop="padding-left">pad-x</div></div>
+    </div>
+    <div class="demo">
+      <span class="label">f6y-m-2/8 on inner box (margin)</span>
+      <div class="cell" style="background:#f1f5f9; display:inline-block;"><div class="f6y-m-2/8 swatch box" data-watch data-prop="margin-top">margin</div></div>
+    </div>
+    <div class="demo">
+      <span class="label">f6y-p (no value → bare default, ratio 2×)</span>
+      <div class="cell"><div class="f6y-p swatch box" data-watch data-prop="padding-top">bare</div></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Gap &amp; space-between</h2>
+  <p class="blurb"><code>space-x</code>/<code>space-y</code> apply to every direct child except the last, mirroring Tailwind's own space utilities (no reverse variant).</p>
+  <div class="grid-demo">
+    <div class="demo">
+      <span class="label">f6y-gap-2/8 (flex gap)</span>
+      <div class="flex f6y-gap-2/8" style="background:#f1f5f9;">
+        <div class="swatch box">A</div><div class="swatch box">B</div><div class="swatch box">C</div>
+      </div>
+    </div>
+    <div class="demo" style="grid-column: span 1;">
+      <span class="label">f6y-space-y-2/8 (stacked children)</span>
+      <div class="f6y-space-y-2/8" style="background:#f1f5f9; padding:0.5rem;">
+        <div class="swatch-alt box" style="display:flex; width:100%;">row 1</div>
+        <div class="swatch-alt box" style="display:flex; width:100%;">row 2</div>
+        <div class="swatch-alt box" style="display:flex; width:100%;">row 3</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Position</h2>
+  <p class="blurb">Fluid offsets for positioned elements — the badge tracks away from the edge as the viewport grows.</p>
+  <div class="demo" style="position:relative; height:8rem; background:#f1f5f9;">
+    <div class="f6y-inset-2/8 swatch-warm box" style="position:absolute;" data-watch data-prop="top">f6y-inset-2/8</div>
+  </div>
+</section>
+
+<section>
+  <h2>Scroll padding</h2>
+  <p class="blurb"><code>f6y-scroll-px-4/16</code> keeps snapped slides clear of the carousel edge as it grows.</p>
+  <div class="carousel f6y-scroll-px-4/16" style="height:6rem;">
+    <div>1</div><div>2</div><div>3</div><div>4</div>
+  </div>
+</section>
+
+<section>
+  <h2>Sizing</h2>
+  <p class="blurb">Width, height, <code>size</code>, min/max and flex-basis all share the sizing scale (default min <code>--spacing(16)</code>).</p>
+  <div class="grid-demo">
+    <div class="demo">
+      <span class="label">f6y-w-32/96 (width)</span>
+      <div class="track" style="height:1.5rem;"><div class="f6y-w-32/96 swatch" style="height:100%;" data-watch data-prop="width"></div></div>
+    </div>
+    <div class="demo">
+      <span class="label">f6y-size-16/40 (width + height)</span>
+      <div class="f6y-size-16/40 swatch box" data-watch data-prop="width"></div>
+    </div>
+    <div class="demo">
+      <span class="label">f6y-max-w-64/[40rem] (max-width)</span>
+      <div class="f6y-max-w-64/[40rem] swatch" style="height:2rem;" data-watch data-prop="max-width"></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Typography</h2>
+  <p class="blurb">Font size, line height, letter spacing and text indent — Tailwind theme keys (<code>sm</code>, <code>xl</code>) resolve through <code>--value(--text-*)</code>.</p>
+  <div class="grid-demo">
+    <div class="demo">
+      <span class="label">f6y-text-sm/4xl</span>
+      <p class="f6y-text-sm/4xl" style="margin:0; font-weight:700;" data-watch data-prop="font-size">Aa Fluid type</p>
+    </div>
+    <div class="demo">
+      <span class="label">f6y-tracking-normal/widest</span>
+      <p class="f6y-tracking-normal/widest" style="margin:0; text-transform:uppercase; font-weight:600;" data-watch data-prop="letter-spacing">Tracking</p>
+    </div>
+    <div class="demo">
+      <span class="label">f6y-leading-tight/loose</span>
+      <p class="f6y-leading-tight/loose" style="margin:0; max-width:20ch;" data-watch data-prop="line-height">Line height stretches as the viewport widens, line by line.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Border radius &amp; widths</h2>
+  <div class="grid-demo">
+    <div class="demo">
+      <span class="label">f6y-rounded-sm/[2rem]</span>
+      <div class="f6y-rounded-sm/[2rem] swatch box" data-watch data-prop="border-top-left-radius"></div>
+    </div>
+    <div class="demo">
+      <span class="label">f6y-border-1/8 (border-width)</span>
+      <div class="f6y-border-1/8 box" style="border-color:#6366f1; border-style:solid;" data-watch data-prop="border-top-width"></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Configuration: lower / upper bounds</h2>
+  <p class="blurb">
+    Same <code>f6y-p-2/8</code> utility, three different ramps. <code>f6y-lower-*</code> / <code>f6y-upper-*</code>
+    accept a breakpoint name, a container size, or an arbitrary length.
+  </p>
+  <div class="grid-demo">
+    <div class="demo">
+      <span class="label">default (lower: sm 40rem, upper: 2xl 96rem)</span>
+      <div class="cell"><div class="f6y-p-2/8 swatch box" data-watch data-prop="padding-top"></div></div>
+    </div>
+    <div class="demo">
+      <span class="label">f6y-lower-[20rem] f6y-upper-[50rem] (finishes early)</span>
+      <div class="cell"><div class="f6y-p-2/8 f6y-lower-[20rem] f6y-upper-[50rem] swatch-alt box" data-watch data-prop="padding-top"></div></div>
+    </div>
+    <div class="demo">
+      <span class="label">f6y-lower-lg f6y-upper-[120rem] (starts late, finishes later)</span>
+      <div class="cell"><div class="f6y-p-2/8 f6y-lower-lg f6y-upper-[120rem] swatch-warm box" data-watch data-prop="padding-top"></div></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Configuration: base &amp; ratio</h2>
+  <div class="grid-demo">
+    <div class="demo">
+      <span class="label">f6y-exp-p-2/8 f6y-base-2 (default)</span>
+      <div class="cell"><div class="f6y-exp-p-2/8 f6y-base-2 swatch box" data-watch data-prop="padding-top"></div></div>
+    </div>
+    <div class="demo">
+      <span class="label">f6y-exp-p-2/8 f6y-base-8 (sharper bend)</span>
+      <div class="cell"><div class="f6y-exp-p-2/8 f6y-base-8 swatch-alt box" data-watch data-prop="padding-top"></div></div>
+    </div>
+    <div class="demo">
+      <span class="label">f6y-p-4 f6y-ratio-4 (max = min × 4, no modifier)</span>
+      <div class="cell"><div class="f6y-p-4 f6y-ratio-4 swatch-warm box" data-watch data-prop="padding-top"></div></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Configuration: axis (viewport vs. container units)</h2>
+  <p class="blurb">
+    Drag the resizer handle at the bottom-right corner. The left box tracks the
+    <em>window</em> (default <code>100vw</code>); the right box has <code>f6y-axis-cqi</code> and only
+    reacts to the resizer's own width, because it measures its query container instead.
+  </p>
+  <div class="grid-demo">
+    <div class="demo">
+      <span class="label">f6y-p-2/8 (axis: 100vw, default)</span>
+      <div class="cell"><div class="f6y-p-2/8 swatch box" data-watch data-prop="padding-top"></div></div>
+    </div>
+    <div class="demo resizer">
+      <span class="label">f6y-p-2/8 f6y-axis-cqi f6y-lower-[16rem] f6y-upper-[48rem]</span>
+      <div class="cell"><div class="f6y-p-2/8 f6y-axis-cqi f6y-lower-[16rem] f6y-upper-[48rem] swatch-alt box" data-watch data-prop="padding-top"></div></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Breakpoint variants</h2>
+  <p class="blurb">
+    Fluidity utilities are ordinary Tailwind <code>@utility</code> rules, so every built-in variant
+    works unmodified: below <code>md</code> the box ramps <code>2 → 8</code>; at <code>md</code> and up
+    the same element switches to a wider <code>8 → 32</code> ramp. Still fully fluid either side of
+    the breakpoint — the variant swaps the range, not a fixed value.
+  </p>
+  <div class="demo">
+    <div class="cell"><div class="f6y-p-2/8 md:f6y-p-8/32 swatch box" data-watch data-prop="padding-top"></div></div>
+  </div>
+</section>
+
+<section>
+  <h2>Arbitrary &amp; theme values</h2>
+  <div class="grid-demo">
+    <div class="demo">
+      <span class="label">f6y-p-[1rem]/[3rem] (both arbitrary)</span>
+      <div class="cell"><div class="f6y-p-[1rem]/[3rem] swatch box" data-watch data-prop="padding-top"></div></div>
+    </div>
+    <div class="demo">
+      <span class="label">f6y-p-2/[3rem] (mixed scale + arbitrary)</span>
+      <div class="cell"><div class="f6y-p-2/[3rem] swatch-alt box" data-watch data-prop="padding-top"></div></div>
+    </div>
+    <div class="demo">
+      <span class="label">f6y-w-xs/lg (container-scale theme keys)</span>
+      <div class="track" style="height:1.5rem;"><div class="f6y-w-xs/lg swatch-warm" style="height:100%;" data-watch data-prop="width"></div></div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<script>
+  // Demo-only: label every [data-watch] box with its live computed value.
+  // Not part of the shipped library — fluidity ships CSS only.
+  const watched = [...document.querySelectorAll("[data-watch]")];
+  function paint() {
+    document.getElementById("vw-readout").textContent = window.innerWidth;
+    for (const el of watched) {
+      const prop = el.dataset.prop;
+      const value = getComputedStyle(el).getPropertyValue(prop).trim();
+      let badge = el.__badge;
+      if (!badge) {
+        badge = document.createElement("span");
+        badge.className = "readout";
+        el.__badge = badge;
+        el.insertAdjacentElement("afterend", badge);
+      }
+      badge.textContent = `${prop}: ${value}`;
+    }
+    requestAnimationFrame(paint);
+  }
+  requestAnimationFrame(paint);
+</script>
+
+</body>
+</html>
