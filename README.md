@@ -12,6 +12,17 @@ container) grows, clamped at both ends.
 <div class="f6y-text-sm/4xl">font-size ramps var(--text-sm) → var(--text-4xl)</div>
 ```
 
+## Documentation
+
+Full docs — concepts, every utility family with live demos, recipes, and a
+generated reference of all 279 utilities — live under [`docs/`](docs), built
+with [Blume](https://github.com/haydenbleasel/blume):
+
+```sh
+npm run docs:dev     # dev server with hot reload
+npm run docs:build   # static site to dist/
+```
+
 ## Install
 
 ```sh
@@ -146,6 +157,7 @@ entirely and the property falls back to its initial or inherited value
 npm install
 npm run build        # regenerate index.css + examples/ from scripts/build-css.mjs
 npm run build:check  # fail if generated files are stale
+npm run docs:reference # regenerate docs/05-reference/*.mdx from index.css
 ```
 
 `index.css` and `examples/{coverage.html,manifest.json,src/coverage.css}` are

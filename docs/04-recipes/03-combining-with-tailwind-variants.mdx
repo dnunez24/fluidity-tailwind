@@ -1,0 +1,95 @@
+---
+title: Combining with Tailwind variants
+description: Layer dark mode, hover states, and breakpoint overrides on top of fluid utilities — they compile to ordinary Tailwind @utility rules.
+sidebar:
+  label: Tailwind variants
+  order: 3
+---
+
+Fluidity utilities compile to ordinary Tailwind `@utility` rules, so they work with any built-in Tailwind variant — dark mode, hover states, focus rings, breakpoint overrides, and more. Layer static fallbacks, mode-specific ramps, or breakpoint caps on top of fluid behavior.
+
+## Dark mode
+
+Use `dark:f6y-*` to apply a different fluid ramp (or a static value) when dark mode is active:
+
+```html
+<!-- Fluid padding: light mode 0.5rem–2rem, dark mode 1rem–2.5rem -->
+<div class="f6y-p-2/8 dark:f6y-p-4/10 bg-white dark:bg-slate-900">
+  Content with responsive padding.
+</div>
+
+<!-- Or switch to static dark mode padding -->
+<div class="f6y-p-2/8 dark:p-6">
+  Fluid in light mode, fixed in dark.
+</div>
+```
+
+`dark:f6y-p-4/10` overrides `f6y-p-2/8` in dark mode, so the padding ramps from 1rem to 2.5rem instead. If the dark mode padding doesn't need to be fluid, use `dark:p-6` (a static Tailwind utility) alongside the fluid class.
+
+## Hover and interaction states
+
+Apply a different ramp on `:hover`, `:focus`, or other interactive states:
+
+```html
+<button class="f6y-gap-2/8 hover:f6y-gap-4/12 transition-[gap]">
+  Button with fluid gap that expands on hover.
+</button>
+```
+
+The gap ramps from 0.5rem–2rem at rest, then 1rem–3rem on hover. The `transition-[gap]` utility animates the gap smoothly — note that the gap only changes when the element is hovered or the window resizes, not continuously. Fluidity doesn't animate gaps on its own; the transition utility does.
+
+Another example with padding:
+
+```html
+<div class="f6y-p-2/6 hover:f6y-p-3/8 focus:f6y-outline-1/2 transition-all">
+  Hover to expand padding, focus for a thicker outline.
+</div>
+```
+
+Each interactive state can pick its own ramp or a static value.
+
+## Breakpoint overrides
+
+Use a fluid ramp on small screens and switch to a static value past a breakpoint, or change the ramp bounds:
+
+```html
+<!-- Fluid below lg, fixed above it -->
+<div class="f6y-p-2/8 lg:p-12">
+  Responsive padding that stops growing after lg.
+</div>
+
+<!-- Fluid with a wider ramp on large screens -->
+<div class="f6y-p-2/8 lg:f6y-p-2/16">
+  Mobile: 0.5rem–2rem, desktop: 0.5rem–4rem.
+</div>
+
+<!-- Switch between exponential and linear curves -->
+<div class="f6y-p-2/8 lg:f6y-log-p-2/8">
+  Mobile: linear growth, desktop: logarithmic (fast start, slow finish).
+</div>
+```
+
+Each breakpoint variant is applied independently, so you can scale fluidly up to a point, then lock to a fixed value, or swap to a different curve for large layouts.
+
+## Combining multiple variants
+
+Stack variants for complex conditionals:
+
+```html
+<div class="f6y-p-2/8 dark:f6y-p-4/10 lg:f6y-p-2/12 dark:lg:f6y-p-4/14">
+  Light mobile: 0.5rem–2rem
+  Light desktop: 0.5rem–3rem
+  Dark mobile: 1rem–2.5rem
+  Dark desktop: 1rem–3.5rem
+</div>
+```
+
+Tailwind evaluates variants in a specific precedence (media queries, then state modifiers), so `dark:lg:f6y-p-4/14` applies when both dark mode and `lg` breakpoint are active.
+
+## Why it works
+
+Every fluidity utility is a Tailwind `@utility` rule with no special syntax or restrictions. Tailwind's variant system treats `f6y-p-2/8` the same way it treats `p-4` or `gap-2` — the variant modifier wraps the utility's CSS declaration. Dark mode, hover, focus, breakpoints, and any other built-in variant work without modification.
+
+The only special consideration: interactive states (hover, focus, active) that toggle fluidity's values need a CSS transition to animate smoothly. If the transition is omitted, the value jumps instantly between states on resize or state change.
+
+See [Utilities](/utilities) for examples of every utility family and their value syntax.

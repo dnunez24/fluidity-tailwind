@@ -1,0 +1,73 @@
+---
+title: Position and Scroll Margins/Padding
+description: Fluidity's fluid positioning utilities and scroll margin/padding ramps for responsive layouts that adapt to container size.
+sidebar:
+  label: Position & Scroll
+  order: 3
+---
+
+Fluidity provides three related utility groups for spacing around positioned elements and scroll behavior: Position (for absolute/relative positioning), Scroll Margin (for snap-point offsets), and Scroll Padding (for scroll-into-view spacing).
+
+## Position utilities
+
+The Position group controls `top`, `right`, `bottom`, `left`, and logical equivalents (`start`, `end`, `inset-*`). Each utility creates a fluid ramp across your chosen bounds.
+
+- `f6y-inset-<min>[/<max>]` – shorthand setting all four sides (CSS `inset`)
+- `f6y-inset-x-<min>[/<max>]` – left and right (CSS `inset-inline`)
+- `f6y-inset-y-<min>[/<max>]` – top and bottom (CSS `inset-block`)
+- `f6y-start-<min>[/<max>]` – logical start edge (CSS `inset-inline-start`)
+- `f6y-end-<min>[/<max>]` – logical end edge (CSS `inset-inline-end`)
+- `f6y-top-<min>[/<max>]`, `f6y-right-<min>[/<max>]`, `f6y-bottom-<min>[/<max>]`, `f6y-left-<min>[/<max>]` – physical sides
+
+All use kind `spacing`, so value forms include scale numbers (`2`, `4`), arbitrary `[1rem]`, mixed (`4/[2rem]`), and theme keys where applicable. Bare `f6y-inset` ramps from the spacing default (`--spacing(4)`, 1rem) to that value times the default 2× ratio (2rem).
+
+**Logical vs physical properties:** `start`/`end` and `inset-inline-*`/`inset-block-*` follow the document's text direction. In left-to-right text, `f6y-start-2` sets `inset-inline-start`, which becomes left; in right-to-left, it becomes right. The physical properties (`left`, `right`, `top`, `bottom`) never change regardless of direction.
+
+**Position requirement:** These utilities set only the edge values; they do not set `position`. Your element must have `position: relative`, `position: absolute`, `position: fixed`, or `position: sticky` to be positioned at all. This is a standard Tailwind pattern — add a position class alongside your fluidity utilities, e.g. `absolute f6y-inset-2/8`.
+
+### Live demo
+
+<div class="f6y-demo">
+  <p class="f6y-demo-hint">Drag the corner to resize →</p>
+  <div style={{ position: 'relative', height: '200px' }} class="f6y-demo-track">
+    <div class="f6y-demo-box f6y-top-2/8 f6y-left-2/8 f6y-axis-cqi f6y-lower-[16rem] f6y-upper-[48rem]" style={{ position: 'absolute' }}>
+      f6y-top-2/8
+    </div>
+  </div>
+</div>
+
+The box's `top` and `left` ramp from 0.5rem to 2rem as the container width grows from 16rem to 48rem. Drag the resize handle to watch it move.
+
+## Scroll margin
+
+Scroll margin (`scroll-margin-*`) offsets the scroll snap and scroll-into-view behavior. Use it alongside scroll snap containers or when JavaScript calls `.scrollIntoView()` to ensure the element doesn't disappear under fixed headers.
+
+- `f6y-scroll-m-<min>[/<max>]` – all sides (CSS `scroll-margin`)
+- `f6y-scroll-mx-<min>[/<max>]` – left and right (CSS `scroll-margin-inline`)
+- `f6y-scroll-my-<min>[/<max>]` – top and bottom (CSS `scroll-margin-block`)
+- `f6y-scroll-ms-<min>[/<max>]` – logical start (CSS `scroll-margin-inline-start`)
+- `f6y-scroll-me-<min>[/<max>]` – logical end (CSS `scroll-margin-inline-end`)
+- `f6y-scroll-mt-<min>[/<max>]`, `f6y-scroll-mr-<min>[/<max>]`, `f6y-scroll-mb-<min>[/<max>]`, `f6y-scroll-ml-<min>[/<max>]` – physical sides
+
+All use kind `spacing`. Bare `f6y-scroll-m` defaults to `--spacing(4)` (1rem).
+
+## Scroll padding
+
+Scroll padding (`scroll-padding-*`) reserves space inside a scroll container for fixed headers or sidebars, so content doesn't scroll behind them.
+
+- `f6y-scroll-p-<min>[/<max>]` – all sides (CSS `scroll-padding`)
+- `f6y-scroll-px-<min>[/<max>]` – left and right (CSS `scroll-padding-inline`)
+- `f6y-scroll-py-<min>[/<max>]` – top and bottom (CSS `scroll-padding-block`)
+- `f6y-scroll-ps-<min>[/<max>]` – logical start (CSS `scroll-padding-inline-start`)
+- `f6y-scroll-pe-<min>[/<max>]` – logical end (CSS `scroll-padding-inline-end`)
+- `f6y-scroll-pt-<min>[/<max>]`, `f6y-scroll-pr-<min>[/<max>]`, `f6y-scroll-pb-<min>[/<max>]`, `f6y-scroll-pl-<min>[/<max>]` – physical sides
+
+All use kind `spacing`. Bare `f6y-scroll-p` defaults to `--spacing(4)` (1rem). Set this on the scroll container itself, not its children.
+
+## Curve variants
+
+All position, scroll margin, and scroll padding utilities ship in linear, exponential (`exp-`), and logarithmic (`log-`) curves. Swap `f6y-inset-2/8` for `f6y-exp-inset-2/8` to ease the ramp at the start, or `f6y-log-inset-2/8` to ease at the end — the endpoints stay the same, only the path between them changes.
+
+## Tailwind variants
+
+Combine with any Tailwind variant: `md:f6y-inset-2/8`, `hover:f6y-top-4/8`, `dark:f6y-scroll-m-2`, `focus:f6y-scroll-p-4/12`, etc.

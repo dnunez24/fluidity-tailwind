@@ -1,0 +1,21 @@
+---
+title: Reference
+description: Generated and hand-written reference material — the complete utility index, every CSS custom property, and fluidity's documented limitations.
+sidebar:
+  label: Overview
+  order: 0
+---
+
+The utility index and CSS variables pages are **generated directly from `index.css`** by `scripts/build-docs-reference.mjs`, so they can't drift from what fluidity actually ships. Limitations is hand-written from the same constraints documented in the README.
+
+<CardGroup cols={3}>
+  <Card title="Utility index" href="/reference/utility-index" icon="list">
+    Every one of the 279 generated utility classes, grouped by property and curve.
+  </Card>
+  <Card title="CSS variables" href="/reference/css-variables" icon="settings">
+    The 5 custom properties and 15 setter utilities that configure every ramp.
+  </Card>
+  <Card title="Limitations" href="/reference/limitations" icon="triangle-alert">
+    What fluidity deliberately doesn't validate or support, and the browser baseline.
+  </Card>
+</CardGroup>

@@ -1,0 +1,80 @@
+---
+title: CSS variables
+description: The 5 custom properties every fluid utility reads and the 15 utilities that set them, with their defaults. Regenerated from index.css.
+sidebar:
+  label: CSS variables
+  order: 2
+---
+
+Every fluid utility reads 5 inheriting custom properties. Each has a matching setter utility, so scoping any of them to a subtree is one class on an ancestor — see [Configuration](/concepts/configuration) for how that powers container-scoped scaling.
+
+| Custom property | Setter utility | Default | Controls |
+| --- | --- | --- | --- |
+| `--f6y-axis` | `f6y-axis-*` | `100vw` | The measured length every ramp's progress is computed from. |
+| `--f6y-lower` | `f6y-lower-*` | `var(--breakpoint-sm, 40rem)` | Axis size where scaling starts. |
+| `--f6y-upper` | `f6y-upper-*` | `var(--breakpoint-2xl, 96rem)` | Axis size where scaling stops. |
+| `--f6y-base` | `f6y-base-*` | `2` | Base of the `exp-`/`log-` curves. Must be greater than 1. |
+| `--f6y-ratio` | `f6y-ratio-*` | `2` | Multiplier deriving `max` from `min` when the modifier is omitted. |
+
+## `f6y-lower-*` / `f6y-upper-*`
+
+`f6y-lower-<breakpoint|container|[length]>` -> `--f6y-lower`
+
+Axis size at which scaling starts. Defaults to `--breakpoint-sm` (40rem).
+Inherits, so it can be set once on an ancestor.
+
+`f6y-upper-<breakpoint|container|[length]>` -> `--f6y-upper`
+
+Axis size at which scaling stops. Defaults to `--breakpoint-2xl` (96rem).
+Inherits, so it can be set once on an ancestor.
+
+Both accept a breakpoint key (`sm`, `2xl`, …), a `--container-*` key, or an arbitrary `[length]`.
+
+## `f6y-base-*`
+
+`f6y-base-<number>` -> `--f6y-base`
+
+Base of the `exp-` and `log-` curves. Must be greater than 1; higher
+values bend the curve harder. Defaults to 2. Ignored by linear utilities.
+
+## `f6y-ratio-*`
+
+`f6y-ratio-<number>` -> `--f6y-ratio`
+
+Multiplier used to derive max from min when no modifier is given.
+Defaults to 2.
+
+## `f6y-axis-*`
+
+`f6y-axis-<unit>` / `f6y-axis-[<length>]` -> `--f6y-axis`
+
+Length that drives every fluid utility on this element and its descendants.
+Defaults to `100vw`. Container units require an ancestor with
+`container-type` set (Tailwind's `@container` utility).
+
+
+| Utility | Resolves to |
+| --- | --- |
+| `f6y-axis-vw` | viewport width (`100vw`) |
+| `f6y-axis-vh` | viewport height (`100vh`) |
+| `f6y-axis-vmin` | smaller viewport axis (`100vmin`) |
+| `f6y-axis-vmax` | larger viewport axis (`100vmax`) |
+| `f6y-axis-cqi` | container inline size (`100cqi`) |
+| `f6y-axis-cqb` | container block size (`100cqb`) |
+| `f6y-axis-cqw` | container width (`100cqw`) |
+| `f6y-axis-cqh` | container height (`100cqh`) |
+| `f6y-axis-cqmin` | smaller container axis (`100cqmin`) |
+| `f6y-axis-cqmax` | larger container axis (`100cqmax`) |
+
+Anything else — a fixed length, or a unit not in that list — goes through the arbitrary form: `f6y-axis-[<length>]`.
+
+## Next steps
+
+<CardGroup cols={2}>
+  <Card title="Configuration" href="/concepts/configuration" icon="settings">
+    How these custom properties compose — container scoping, curve tuning.
+  </Card>
+  <Card title="Utility index" href="/reference/utility-index" icon="list">
+    Every property-scaling utility these custom properties drive.
+  </Card>
+</CardGroup>

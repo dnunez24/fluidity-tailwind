@@ -1,0 +1,90 @@
+---
+title: Container-based scaling
+description: Scale a reusable card component fluidly to whatever column width it's placed in, using container query units instead of the viewport.
+sidebar:
+  order: 2
+---
+
+A reusable card component needs to look right in every layout — 1-column mobile, 2-column tablet, 3-column desktop grid. Rather than writing per-breakpoint overrides for each grid context, set the card's bounds to scale off its own container width using `f6y-axis-cqi`, so the same card adapts automatically.
+
+## The pattern
+
+Wrap the card in a container, then use `f6y-axis-cqi` on the card root to measure its container's inline size instead of the viewport:
+
+```html
+<div class="@container">
+  <div class="f6y-p-2/6 f6y-axis-cqi f6y-lower-[12rem] f6y-upper-[48rem]">
+    <h3 class="f6y-text-base/xl font-bold mb-2">
+      Card title
+    </h3>
+    <p class="f6y-text-sm/base">
+      Card body text, scaled to this container's width.
+    </p>
+  </div>
+</div>
+```
+
+`f6y-axis-cqi` tells fluidity to use container query inline size (`cqi`) as the axis instead of viewport width (`vw`). `f6y-lower-*` and `f6y-upper-*` set the ramp range: padding and text grow smoothly as the card's container grows from 12rem to 48rem. Use the same card class in a mobile column (12rem) or a desktop grid column (48rem+), and padding and text scale independently to fit each one.
+
+:::note
+The parent element needs `@container` (Tailwind's container utility) to enable container queries. Without it, `cqi` has no container to query and resolves to zero.
+:::
+
+## Live demo
+
+Two `.f6y-demo` containers at different widths, each holding an identical card. Drag the resize handles to see the card adapt independently to each container's size:
+
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin: 1.5rem 0;">
+  <div>
+    <p style="font-size: 0.875rem; color: var(--slate-600); margin-bottom: 0.5rem;">Narrow (mobile):</p>
+    <div class="f6y-demo" style="width: 100%;">
+      <p class="f6y-demo-hint">Drag →</p>
+      <div class="f6y-demo-track">
+        <div class="f6y-demo-box f6y-p-2/4 f6y-axis-cqi f6y-lower-[12rem] f6y-upper-[32rem]">
+          <p style="font-size: 0.875rem; font-weight: bold;">Card title</p>
+          <p style="font-size: 0.75rem;">Text scales with this container.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div>
+    <p style="font-size: 0.875rem; color: var(--slate-600); margin-bottom: 0.5rem;">Wide (desktop):</p>
+    <div class="f6y-demo" style="width: 100%;">
+      <p class="f6y-demo-hint">Drag →</p>
+      <div class="f6y-demo-track">
+        <div class="f6y-demo-box f6y-p-2/4 f6y-axis-cqi f6y-lower-[12rem] f6y-upper-[32rem]">
+          <p style="font-size: 0.875rem; font-weight: bold;">Card title</p>
+          <p style="font-size: 0.75rem;">Text scales with this container.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+Both cards use identical classes (`f6y-p-2/4 f6y-axis-cqi f6y-lower-[12rem] f6y-upper-[32rem]`), but padding and text size respond to each container's width independently.
+
+## HTML structure
+
+```html
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+  <div class="@container">
+    <div class="f6y-p-2/6 f6y-axis-cqi f6y-lower-[12rem] f6y-upper-[48rem] bg-slate-100 rounded">
+      <h3 class="f6y-text-base/xl font-bold mb-2">
+        Card
+      </h3>
+      <p class="f6y-text-sm/base text-slate-600">
+        Same card component, three different column widths. Padding and text scale to each.
+      </p>
+    </div>
+  </div>
+  <!-- repeated in other columns -->
+</div>
+```
+
+The outer grid uses Tailwind's breakpoint variants to set column count. Each grid cell is a `@container` so its child card can measure the column width with `cqi` — no per-breakpoint card overrides needed.
+
+## Why it works
+
+Container query units decouple a component from the viewport. A card in a sidebar (narrow) and a card in a main grid (wide) can use the exact same fluid utility classes because `cqi` measures each card's own ancestor container, not the viewport. The result: component-first responsive design with no context-specific class overrides.
+
+See [Configuration](/concepts/configuration) for other axis choices (viewport units, container query dimensions, and logical directions).

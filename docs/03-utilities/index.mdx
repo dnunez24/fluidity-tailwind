@@ -1,0 +1,72 @@
+---
+title: Utilities
+description: Every fluidity utility family, the value syntax they share, and how curve and variant support works across all of them.
+sidebar:
+  label: Overview
+  order: 0
+---
+
+Fluidity ships 279 `@utility` rules across 11 property groups, listed below. Every one of them follows the same three rules, so once you've used one you've used them all.
+
+## One value syntax, everywhere
+
+Every fluid utility is `f6y-<curve-ns><name>-<min>[/<max>]`, and `<min>[/<max>]` accepts the same shapes Tailwind's own utilities do — spacing-scale numbers, theme keys, or arbitrary values, mixed freely. What differs between property groups is only which **kind** of value the bounds resolve through:
+
+| Kind | Used by | Accepts | Bare (`f6y-p` with no value) falls back to |
+| --- | --- | --- | --- |
+| `spacing` | padding, margin, gap, space-between, position, scroll-margin, scroll-padding, indent | spacing-scale numbers (`4`, `2.5`) or arbitrary `[length]`/`[percentage]` | `--spacing(4)` (1rem) |
+| `sizing` | width, height, size, min/max-width/height, basis | spacing-scale numbers, `--container-*` keys, or arbitrary values | `--spacing(16)` (4rem) |
+| `fontSize` | `text` | `--text-*` keys or arbitrary values | `var(--text-base)` (1rem) |
+| `leading` | `leading` | spacing-scale numbers, `--leading-*` keys, or arbitrary values | `--spacing(6)` (1.5rem) |
+| `tracking` | `tracking` | `--tracking-*` keys or arbitrary values | `var(--tracking-normal)` (`0em`) |
+| `radius` | `rounded` and every corner | `--radius-*` keys or arbitrary values | `var(--radius-md)` (0.375rem) |
+| `lineWidth` | border and outline widths | px counts (like `border-2` → `2px`) or arbitrary `[length]` | `1px` |
+
+Whatever the kind, the same five value forms are always available:
+
+```html
+<div class="f6y-p-2/8"></div>          <!-- pair: both bounds from the scale -->
+<div class="f6y-p-[1rem]/[3rem]"></div> <!-- arbitrary: both bounds bracketed -->
+<div class="f6y-p-2/[3rem]"></div>      <!-- mixed: one scale value, one arbitrary -->
+<div class="f6y-p-2"></div>             <!-- min only: max = min * var(--f6y-ratio, 2) -->
+<div class="f6y-p"></div>               <!-- bare: min falls back to the kind's default -->
+```
+
+See [How it works](/concepts/how-it-works) for the derivation, or the [utility index](/reference/utility-index) for every generated class.
+
+## Three curves, no exceptions
+
+Every one of the 88 base utilities below ships in linear (no prefix), `exp-`, and `log-` variants — 264 classes, none of which are documented separately per family, since the curve namespace works identically everywhere. See [Curves](/concepts/curves).
+
+## Any Tailwind variant
+
+Because every fluidity class compiles to an ordinary `@utility` rule, Tailwind's variant system treats it exactly like a built-in utility:
+
+```html
+<div class="md:f6y-p-8/32 hover:f6y-gap-2/8 dark:f6y-p-4"></div>
+```
+
+See [Combining with Tailwind variants](/recipes/combining-with-tailwind-variants) for worked recipes.
+
+## Property groups
+
+<CardGroup cols={2}>
+  <Card title="Padding & margin" href="/utilities/padding-and-margin" icon="square-dashed">
+    18 utilities across every edge and logical axis.
+  </Card>
+  <Card title="Gap & space-between" href="/utilities/gap-and-space-between" icon="columns-3">
+    Flex/grid gutters and child-to-child spacing.
+  </Card>
+  <Card title="Position & scroll" href="/utilities/position-and-scroll" icon="move">
+    Offsets, scroll-margin, and scroll-padding.
+  </Card>
+  <Card title="Sizing" href="/utilities/sizing" icon="maximize">
+    Width, height, size, min/max bounds, and flex basis.
+  </Card>
+  <Card title="Typography" href="/utilities/typography" icon="type">
+    Font size, line height, letter spacing, and text indent.
+  </Card>
+  <Card title="Borders & radius" href="/utilities/borders-and-radius" icon="square">
+    Corner rounding and border/outline widths.
+  </Card>
+</CardGroup>

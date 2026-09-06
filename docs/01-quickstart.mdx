@@ -1,0 +1,91 @@
+---
+title: Quickstart
+description: Install fluidity, import it after Tailwind CSS, and ship your first fluid utility — a padding value that scales continuously with the viewport.
+sidebar:
+  label: Quickstart
+  order: 1
+---
+
+Fluidity needs **Tailwind CSS v4**. There's no config file, no build step of its own, and no JavaScript — it's a stylesheet of `@utility` rules that Tailwind compiles like any other utility.
+
+## Install and import
+
+<Steps>
+  <Step title="Install fluidity">
+    ```package-install
+    npm install fluidity-css
+    ```
+  </Step>
+  <Step title="Import it after Tailwind">
+    Fluidity's utilities are ordinary Tailwind `@utility` rules, so they need Tailwind's `@import "tailwindcss"` to run first — that's what defines `--value()`, `--modifier()`, and the theme (`--spacing()`, `--text-*`, `--breakpoint-*`, …) fluidity's utilities read from.
+
+    ```css lineNumbers
+    @import "tailwindcss";
+    @import "fluidity";
+    ```
+  </Step>
+  <Step title="Use a fluid utility">
+    Any `f6y-*` class works anywhere a normal Tailwind utility does — on any element, with any variant.
+
+    ```html
+    <div class="f6y-p-2/8">
+      Padding ramps from 0.5rem to 2rem as the viewport grows.
+    </div>
+    ```
+  </Step>
+</Steps>
+
+## See it move
+
+Every fluid utility reads `--f6y-axis` — `100vw` by default — to know where it is along the ramp. Point it at this container instead of the viewport with `f6y-axis-cqi`, and set a shorter range with `f6y-lower-*`/`f6y-upper-*` so the box below visibly changes size within the width of this page. Drag the bottom-right corner to resize it — no JavaScript, just CSS `resize` and `container-type`:
+
+<div class="f6y-demo">
+  <p class="f6y-demo-hint">Drag the corner to resize this container →</p>
+  <div class="f6y-demo-track">
+    <div class="f6y-demo-box f6y-p-2/8 f6y-axis-cqi f6y-lower-[16rem] f6y-upper-[48rem]">
+      f6y-p-2/8
+    </div>
+  </div>
+</div>
+
+```html
+<div class="@container">
+  <div class="f6y-p-2/8 f6y-axis-cqi f6y-lower-[16rem] f6y-upper-[48rem]">
+    padding ramps 0.5rem -> 2rem as this container's inline size grows
+  </div>
+</div>
+```
+
+`f6y-axis-cqi`, `f6y-lower-*`, and `f6y-upper-*` are themselves fluidity utilities — they set the `--f6y-axis`, `--f6y-lower`, and `--f6y-upper` custom properties that every fluid utility beneath them inherits. See [Configuration](/concepts/configuration) for the full list.
+
+## Value syntax
+
+`<min>[/<max>]` follows Tailwind's own value syntax — spacing-scale numbers, theme keys, or arbitrary values, mixed freely:
+
+```html
+<div class="f6y-p-2/8"></div>          <!-- spacing scale: 0.5rem -> 2rem -->
+<div class="f6y-p-[1rem]/[3rem]"></div> <!-- arbitrary values -->
+<div class="f6y-p-2/[3rem]"></div>      <!-- mixed -->
+<div class="f6y-text-sm/xl"></div>      <!-- theme keys -->
+<div class="f6y-p-2"></div>             <!-- max omitted -> min * ratio (default 2x) -->
+<div class="f6y-p"></div>               <!-- min omitted -> per-property default -->
+```
+
+Every entry ships in linear, `exp-`, and `log-` variants and works with any built-in Tailwind variant:
+
+```html
+<div class="md:f6y-p-8/32 hover:f6y-gap-2/8 dark:f6y-p-4"></div>
+```
+
+See [Utilities](/utilities) for the full value syntax per property group.
+
+## Next steps
+
+<CardGroup cols={2}>
+  <Card title="How it works" href="/concepts/how-it-works" icon="brain">
+    The clamp math behind every fluid utility.
+  </Card>
+  <Card title="Utilities" href="/utilities" icon="ruler">
+    Every utility family, with live demos.
+  </Card>
+</CardGroup>

@@ -1,0 +1,69 @@
+/* Docs-site theme layer.
+ *
+ * Fluidity itself is imported so that documentation pages can render *live*
+ * fluid utilities instead of screenshots — a reader resizing the window (or a
+ * demo's container) sees the real ramp recompute.
+ *
+ * Blume's own generated `@source` line only scans `.astro`/`.mdx`/`.ts`/`.tsx`
+ * files, so it never reaches this repo's machine-generated fixtures
+ * (`examples/coverage.html`, `examples/manifest.json` — 1,236 instances of
+ * every generated utility), `README.md`, or `scripts/build-css.mjs` — verified
+ * by diffing a build with and without the exclusions below (byte-identical
+ * output). They stay as defensive insurance against Tailwind v4's separate,
+ * broader automatic content-detection scan, which does walk the whole
+ * repository regardless of `@source` and would compile all 1,236 fixture
+ * instances into this stylesheet if it ever reached them.
+ */
+@source not "examples";
+@source not "README.md";
+@source not "scripts";
+
+@import "fluidity-css";
+
+/* Demo blocks set their own bounds with real fluidity utilities, scoped to
+ * this container rather than the viewport, so resizing `.f6y-demo` (native
+ * CSS `resize`, no JavaScript) drives the ramp live:
+ *
+ *   <div class="f6y-demo">
+ *     <div class="f6y-demo-box f6y-p-2/8 f6y-axis-cqi f6y-lower-[16rem] f6y-upper-[48rem]">
+ *       f6y-p-2/8
+ *     </div>
+ *   </div>
+ */
+
+/* Shared chrome for the live demo blocks used across the utility pages. */
+.f6y-demo {
+  container-type: inline-size;
+  border: 1px solid var(--blume-border);
+  border-radius: var(--blume-radius);
+  background: var(--blume-muted);
+  padding: 1rem;
+  margin-block: 1.5rem;
+  overflow: hidden;
+  resize: horizontal;
+  min-width: 12rem;
+  max-width: 100%;
+}
+
+.f6y-demo-box {
+  background: var(--blume-accent);
+  color: var(--blume-accent-foreground);
+  border-radius: calc(var(--blume-radius) / 1.5);
+  font: 600 0.8125rem / 1.2 var(--blume-font-mono);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 1.5rem;
+  text-align: center;
+}
+
+.f6y-demo-track {
+  background: color-mix(in oklab, var(--blume-accent) 18%, transparent);
+  border-radius: calc(var(--blume-radius) / 1.5);
+}
+
+.f6y-demo-hint {
+  margin: 0 0 0.75rem;
+  font: 500 0.75rem / 1.4 var(--blume-font-mono);
+  color: var(--blume-muted-foreground);
+}

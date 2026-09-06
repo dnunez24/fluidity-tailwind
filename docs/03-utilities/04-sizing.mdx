@@ -1,0 +1,74 @@
+---
+title: Sizing
+description: Fluidity's fluid width, height, size, min/max bounds, and flex-basis utilities that scale responsively to viewport or container dimensions.
+sidebar:
+  order: 4
+---
+
+The Sizing group controls dimensions: width, height, min/max bounds, and flex basis. All use kind `sizing`, which accepts spacing-scale numbers (`4`, `16`), container breakpoint keys (`sm`, `md`, `xl`), or arbitrary values.
+
+## Width and height
+
+- `f6y-w-<min>[/<max>]` – width (CSS `width`)
+- `f6y-h-<min>[/<max>]` – height (CSS `height`)
+- `f6y-size-<min>[/<max>]` – both width and height together (CSS `width` and `height`)
+
+Bare `f6y-w` or `f6y-h` defaults to `--spacing(16)` (4rem), so max = 4rem × 2 = 8rem by default.
+
+## Min and max constraints
+
+- `f6y-min-w-<min>[/<max>]` – minimum width (CSS `min-width`)
+- `f6y-min-h-<min>[/<max>]` – minimum height (CSS `min-height`)
+- `f6y-max-w-<min>[/<max>]` – maximum width (CSS `max-width`)
+- `f6y-max-h-<min>[/<max>]` – maximum height (CSS `max-height`)
+
+All default to `--spacing(16)` (4rem) when bare.
+
+## Flex basis
+
+- `f6y-basis-<min>[/<max>]` – flex basis (CSS `flex-basis`)
+
+**Important:** `flex-basis` only takes effect inside a flex or inline-flex container. Wrap your element in `class="flex"` or `class="inline-flex"`:
+
+```html
+<div class="flex gap-2">
+  <div class="f6y-basis-4/12">
+    This flex item's width ramps from 1rem to 3rem
+  </div>
+  <div>
+    Sibling flex item
+  </div>
+</div>
+```
+
+Bare `f6y-basis` defaults to `--spacing(16)` (4rem).
+
+## Value forms
+
+Sizing accepts the same value syntax as all fluidity utilities:
+
+- **Pair**: `f6y-w-4/12` — both bounds from the spacing scale
+- **Arbitrary**: `f6y-w-[10rem]/[20rem]` — bracketed literal values
+- **Mixed**: `f6y-w-6/[16rem]` — one scale value, one arbitrary
+- **Container theme**: `f6y-max-w-sm/xl` — theme keys (`sm`, `md`, `lg`, `xl`, `2xl`, etc., matching Tailwind's `--container-*` variables)
+- **Min only**: `f6y-w-8` — min is `--spacing(8)` (2rem), max defaults to min × the default 2× ratio = 4rem
+- **Bare**: `f6y-w` — min falls back to `--spacing(16)` (4rem), max = min × the default 2× ratio (8rem), so the range is 4rem–8rem
+
+## Live demo
+
+<div class="f6y-demo">
+  <p class="f6y-demo-hint">Drag the corner to resize →</p>
+  <div class="f6y-demo-box f6y-w-8/24 f6y-axis-cqi f6y-lower-[16rem] f6y-upper-[48rem]">
+    f6y-w-8/24
+  </div>
+</div>
+
+The box's width ramps from 2rem to 6rem as the container grows from 16rem to 48rem. Since the demo container has a minimum resizable width around 12rem, the box never overflows.
+
+## Curve variants
+
+All sizing utilities ship in linear, exponential (`exp-`), and logarithmic (`log-`) curves. Swap `f6y-w-8/24` for `f6y-exp-w-8/24` to ease width growth at the start, or `f6y-log-w-8/24` for ease-out — the bounds stay the same, only the path between them changes.
+
+## Tailwind variants
+
+Combine with any Tailwind variant: `md:f6y-w-8/24`, `hover:f6y-h-4/8`, `dark:f6y-size-2/6`, `focus:f6y-max-w-sm/lg`, etc.

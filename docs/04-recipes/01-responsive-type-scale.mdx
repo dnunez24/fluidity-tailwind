@@ -1,0 +1,73 @@
+---
+title: Responsive type scale
+description: Build a proportional fluid type scale — headings, body text, and line height — that maintains its hierarchy across every viewport size.
+sidebar:
+  order: 1
+---
+
+A proportional type scale — where headings and body text all grow together — keeps visual hierarchy intact as the viewport changes. Setting one fluid ramp on a parent container and having every heading and paragraph inherit it ensures all text elements scale in proportion to each other.
+
+## The pattern
+
+Set `f6y-lower-*` and `f6y-upper-*` once on a wrapper, then stack headings and body text using different `f6y-text-*` ranges — they'll all scale along the same viewport axis:
+
+```html
+<div class="f6y-lower-[24rem] f6y-upper-[96rem]">
+  <h1 class="f6y-text-3xl/6xl">
+    Marketing headline
+  </h1>
+  <h2 class="f6y-text-2xl/4xl">
+    Section subheading
+  </h2>
+  <p class="f6y-text-base/lg f6y-leading-normal/relaxed">
+    Body text that scales proportionally with the headings above.
+  </p>
+</div>
+```
+
+The wrapper's `f6y-lower-*` and `f6y-upper-*` set the ramp range for every descendant. Each heading picks its own min/max font sizes via `f6y-text-*`, but they all use the same axis (viewport width by default). The `h2`'s `f6y-text-2xl/4xl` is always proportionally smaller than the `h1`'s `f6y-text-3xl/6xl`, no matter the viewport size.
+
+:::note
+The custom properties `--f6y-lower`, `--f6y-upper`, and `--f6y-axis` inherit from parent to child, so setting them once on a container propagates down. This keeps a type scale cohesive — no need to repeat bounds on every element.
+:::
+
+## Live example
+
+Resize your browser or device to see all three text sizes scale together while maintaining their hierarchy:
+
+```html title="index.html" lineNumbers
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      @import "tailwindcss";
+      @import "fluidity";
+    </style>
+  </head>
+  <body>
+    <div class="f6y-lower-[24rem] f6y-upper-[96rem] max-w-prose mx-auto p-8">
+      <h1 class="f6y-text-3xl/6xl font-bold mb-4">
+        Article Title
+      </h1>
+      <h2 class="f6y-text-2xl/4xl font-bold mb-2">
+        Section heading
+      </h2>
+      <p class="f6y-text-base/lg f6y-leading-normal/relaxed mb-4">
+        Body text with fluid line height. Notice how the h1, h2, and p all grow and shrink in proportion to each other as the viewport changes.
+      </p>
+      <h2 class="f6y-text-2xl/4xl font-bold mb-2">
+        Another section
+      </h2>
+      <p class="f6y-text-base/lg f6y-leading-normal/relaxed">
+        The proportions stay the same across all screen sizes because every element inherits the same `--f6y-lower`, `--f6y-upper`, and `--f6y-axis` from the wrapper.
+      </p>
+    </div>
+  </body>
+</html>
+```
+
+## Why it works
+
+Setting bounds once on a parent is more maintainable than repeating the same `f6y-lower-*`/`f6y-upper-*` on every heading. Custom properties inherit, so fluidity respects that — one ramp range drives the entire type scale. Narrow or widen that range by changing the wrapper's `f6y-lower-*`/`f6y-upper-*` values, and every descendant fluidity utility recomputes against the new bounds — no need to touch each heading individually.
+
+See [Configuration](/concepts/configuration) for the full list of custom property utilities.

@@ -1,0 +1,59 @@
+---
+title: Limitations
+description: What fluidity deliberately doesn't validate or support, and the browser baseline (Baseline Widely Available CSS) every utility requires.
+sidebar:
+  label: Limitations
+  order: 3
+---
+
+Fluidity trusts you the same way Tailwind's arbitrary values do — it validates nothing at build time beyond CSS syntax itself.
+
+## No value validation
+
+Fluidity does not check that:
+
+- `min < max` — an inverted ramp (`f6y-p-8/2`) compiles and runs; it just ramps downward.
+- Units are compatible between `min` and `max`.
+- A curve's `--f6y-base` is greater than 1 — a `base` of 1 or less makes `exp-`/`log-` curves mathematically undefined (`log(x, 1)` is division by zero).
+
+## No third-party plugin integration
+
+Fluidity isn't integrated with tools like Tailwind Merge. A conditional class list that needs to deduplicate `f6y-p-2/8` against another padding utility has to do so itself — fluidity's classes are opaque strings to those tools, same as any other Tailwind utility they don't specifically recognize.
+
+## No negative values
+
+Tailwind's `-m-4` idiom — a leading dash selecting the negative form of a scale value — has no fluidity counterpart. A class like `-f6y-m-4` simply doesn't match any of fluidity's `@utility` patterns. For a negative ramp, use arbitrary values on both bounds instead:
+
+```html
+<div class="f6y-m-[-2rem]/[-4rem]"></div>
+```
+
+## Browser support
+
+Fluidity targets Baseline Widely Available CSS as of August 2026:
+
+- `calc()`, `clamp()`, `var()`
+- The CSS trigonometric functions `atan2()` and `tan()`
+- The CSS exponential functions `pow()` and `log()`
+- Container query length units (`cqi`, `cqb`, `cqw`, `cqh`, `cqmin`, `cqmax`)
+
+There is **no fallback for older browsers**. Every declaration a fluidity utility emits embeds `tan(atan2(...))` (plus `pow()`/`log()` for `exp-`/`log-` variants). When a browser doesn't support one of these functions, it drops the whole declaration — the property falls back to its initial or inherited value, not a static approximation of the ramp. `f6y-p-2/8` on an unsupported browser produces no padding at all, not `0.5rem` and not `2rem`.
+
+If a static fallback matters for your audience, layer a plain Tailwind utility before the fluid one and let the fluid declaration override it on browsers that support it:
+
+```html
+<div class="p-4 f6y-p-2/8"></div>
+<!-- p-4 wins on unsupported browsers; f6y-p-2/8 wins everywhere else,
+     since it's declared later in the same @layer utilities. -->
+```
+
+## Next steps
+
+<CardGroup cols={2}>
+  <Card title="Utility index" href="/reference/utility-index" icon="list">
+    The complete, generated list of every utility fluidity ships.
+  </Card>
+  <Card title="Quickstart" href="/quickstart" icon="rocket">
+    Install fluidity and ship your first fluid utility.
+  </Card>
+</CardGroup>

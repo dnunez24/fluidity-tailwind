@@ -1,0 +1,107 @@
+---
+title: Gap and Space Between
+description: Fluid gap and space-between utilities for flexbox and grid layouts, scaling gutters and child spacing continuously as their container grows.
+sidebar:
+  order: 2
+---
+
+Fluidity provides five fluid spacing utilities for controlling space in layouts: three gap utilities for flexbox and grid, and two space-between utilities for direct child spacing. Both groups use the `spacing` value kind and ship in all three curve variants.
+
+## Gap utilities
+
+The gap utilities control the space between grid cells and flex items:
+
+| Utility | CSS Property | Effect |
+|---------|--------------|--------|
+| `f6y-gap` | `gap` | Horizontal and vertical gap |
+| `f6y-gap-x` | `column-gap` | Horizontal gap only (columns) |
+| `f6y-gap-y` | `row-gap` | Vertical gap only (rows) |
+
+These work identically to Tailwind's own `gap-*`, `gap-x-*`, and `gap-y-*` utilities, but with fluid ramps instead of static values. Use them on flex and grid containers.
+
+## Space-between utilities
+
+The space-between utilities add margin to every direct child *except the last*, creating even spacing without needing gaps:
+
+| Utility | CSS Property (applied via) | Effect |
+|---------|-------------|--------|
+| `f6y-space-x` | `margin-inline-end` (on direct children) | Horizontal space between siblings |
+| `f6y-space-y` | `margin-block-end` (on direct children) | Vertical space between siblings |
+
+Space-between utilities apply via the `:where(& > :not(:last-child))` pseudo-class selector. This means only the **direct children except the last** receive the margin. The last child gets no margin, preventing unwanted trailing space.
+
+:::note
+Unlike Tailwind's own `space-x-*` and `space-y-*`, fluidity's space-between utilities do **not** have a `-reverse` variant. For reversed direction, apply the utility to a flex or grid container with `flex-row-reverse` or `grid-auto-flow: column-reverse` instead.
+:::
+
+## Value forms
+
+Both gap and space-between utilities use the `spacing` value kind, accepting the same value forms as padding and margin:
+
+- **Pair**: `f6y-gap-2/8` → gap ramps from `0.5rem` to `2rem`
+- **Arbitrary**: `f6y-gap-[0.5rem]/[2.5rem]` → custom ramp
+- **Mixed**: `f6y-gap-2/[2.5rem]` → ramps from `0.5rem` to `2.5rem`
+- **Min only**: `f6y-gap-4` → ramps from `1rem` to `2rem` (2× the min)
+- **Bare**: `f6y-gap` → ramps from `1rem` to `2rem` (the spacing kind's default)
+
+## Live demos
+
+### Gap on a flex row
+
+Resize this container to see the gap between three boxes grow:
+
+<div class="f6y-demo">
+  <p class="f6y-demo-hint">Drag the corner to resize this container →</p>
+  <div class="f6y-demo-track flex f6y-gap-2/8 f6y-axis-cqi f6y-lower-[16rem] f6y-upper-[56rem]">
+    <div class="f6y-demo-box flex-1" style="background: var(--blume-accent); min-height: 2rem;"></div>
+    <div class="f6y-demo-box flex-1" style="background: var(--blume-accent); min-height: 2rem;"></div>
+    <div class="f6y-demo-box flex-1" style="background: var(--blume-accent); min-height: 2rem;"></div>
+  </div>
+</div>
+
+```html title="Flex gap demo"
+<div class="@container flex f6y-gap-2/8 f6y-axis-cqi f6y-lower-[16rem] f6y-upper-[56rem]">
+  <div>Item 1</div>
+  <div>Item 2</div>
+  <div>Item 3</div>
+</div>
+```
+
+### Space-x on inline children
+
+Resize this container to see the horizontal margin between three inline items grow:
+
+<div class="f6y-demo">
+  <p class="f6y-demo-hint">Drag the corner to resize this container →</p>
+  <div class="f6y-space-x-2/8 f6y-axis-cqi f6y-lower-[16rem] f6y-upper-[56rem]">
+    <span class="f6y-demo-box" style="display: inline-block;">Item 1</span>
+    <span class="f6y-demo-box" style="display: inline-block;">Item 2</span>
+    <span class="f6y-demo-box" style="display: inline-block;">Item 3</span>
+  </div>
+</div>
+
+```html title="Space-between demo"
+<div class="f6y-space-x-2/8 f6y-axis-cqi f6y-lower-[16rem] f6y-upper-[56rem]">
+  <span>Item 1</span>
+  <span>Item 2</span>
+  <span>Item 3</span>
+</div>
+```
+
+## Curves and variants
+
+All five utilities ship in three curve variants:
+
+- `f6y-gap-2/8` — linear
+- `f6y-exp-gap-2/8` — exponential
+- `f6y-log-gap-2/8` — logarithmic
+
+See [Curves](/concepts/curves) for details on how each transitions.
+
+Every utility works with any Tailwind variant:
+
+```html
+<div class="md:f6y-gap-4/8"></div>         <!-- Only on medium screens and up -->
+<div class="dark:f6y-gap-2/6"></div>       <!-- In dark mode -->
+<div class="hover:f6y-space-x-1/4"></div>  <!-- On hover -->
+```
