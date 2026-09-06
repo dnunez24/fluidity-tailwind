@@ -44,13 +44,13 @@ Control margin on all sides and individual edges:
 
 Both padding and margin utilities use the `spacing` value kind, which accepts spacing-scale numbers and arbitrary values:
 
-- **Pair** (both from scale): `f6y-p-2/8` → padding ramps from `0.5rem` (spacing-2) to `2rem` (spacing-8)
-- **Arbitrary** (both bracketed): `f6y-p-[1rem]/[3rem]` → ramps from `1rem` to `3rem`
-- **Mixed** (scale and arbitrary): `f6y-p-2/[3rem]` → ramps from `0.5rem` to `3rem`
-- **Min only** (no max): `f6y-p-2` → ramps from `0.5rem` to `0.5rem * ratio` (default `1rem`, 2× multiplier)
-- **Bare** (value omitted): `f6y-p` → ramps from the spacing default `1rem` to `2rem` (the default `--spacing(4)` through its 2× ratio)
+- **Pair** (both from scale): `f6y-p-2/8` -> padding ramps from `0.5rem` (spacing-2) to `2rem` (spacing-8)
+- **Arbitrary** (both bracketed): `f6y-p-[1rem]/[3rem]` -> ramps from `1rem` to `3rem`
+- **Mixed** (scale and arbitrary): `f6y-p-2/[3rem]` -> ramps from `0.5rem` to `3rem`
+- **Min only** (no max): `f6y-p-2` -> ramps from `0.5rem` to `0.5rem * ratio` (default `1rem`, 2× multiplier)
+- **Bare** (value omitted): `f6y-p` -> ramps from the spacing default `1rem` to `2rem` (the default `--spacing(4)` through its 2× ratio)
 
-The spacing scale maps numbers to lengths — `2` is `0.5rem`, `4` is `1rem`, `8` is `2rem`, etc.
+The spacing scale maps numbers to lengths: `2` is `0.5rem`, `4` is `1rem`, `8` is `2rem`, etc.
 Arbitrary values use CSS length units (`rem`, `px`, `%`, etc.) and can be percentages.
 
 ## Live demo
@@ -58,7 +58,7 @@ Arbitrary values use CSS length units (`rem`, `px`, `%`, etc.) and can be percen
 Resize this container to see padding grow along the ramp:
 
 <div class="f6y-demo">
-  <p class="f6y-demo-hint">Drag the corner to resize this container →</p>
+  <p class="f6y-demo-hint">Drag the corner to resize this container -></p>
   <div class="f6y-demo-track">
     <div class="f6y-demo-box f6y-p-2/8 f6y-axis-cqi f6y-lower-[16rem] f6y-upper-[48rem]">
       f6y-p-2/8
@@ -76,11 +76,12 @@ Resize this container to see padding grow along the ramp:
 
 ## Curves and variants
 
-All eighteen utilities come in three curve variants — linear, exponential, and logarithmic — that differ only in how smoothly they transition between min and max:
+All eighteen utilities come in three curve variants: linear, exponential, and logarithmic.
+They differ only in how they transition between min and max:
 
-- `f6y-p-2/8` — linear progression
-- `f6y-exp-p-2/8` — exponential (slow start, fast finish)
-- `f6y-log-p-2/8` — logarithmic (fast start, slow finish)
+- `f6y-p-2/8`: linear progression
+- `f6y-exp-p-2/8`: exponential (slow start, fast finish)
+- `f6y-log-p-2/8`: logarithmic (fast start, slow finish)
 
 See [Curves](/concepts/curves) for how each curve behaves.
 
@@ -93,4 +94,4 @@ Every padding and margin utility also works with any built-in Tailwind variant:
 <div class="focus:f6y-pl-1/4"></div>       <!-- On focus -->
 ```
 
-Variants stack freely and work as you'd expect with any other Tailwind utility.
+Variants stack and work as you'd expect with any other Tailwind utility.

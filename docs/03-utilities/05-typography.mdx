@@ -9,7 +9,7 @@ sidebar:
 The Typography group ramps font properties independently, each with its own value kind.
 Every utility ships in linear, `exp-`, and `log-` variants and works with all Tailwind variants (`md:`, `hover:`, `dark:`, etc.).
 
-## `text` — font-size
+## `text`: Font-size
 
 Maps to `font-size` using the `fontSize` kind, which accepts `--text-*` theme keys or arbitrary values.
 Bare `f6y-text` defaults to `var(--text-base)` (1rem).
@@ -21,11 +21,11 @@ Bare `f6y-text` defaults to `var(--text-base)` (1rem).
 <div class="f6y-text">Bare: uses default (1rem) as min, default × 2 as max.</div>
 ```
 
-See the demo below — a paragraph's font-size grows as its container widens.
+See the demo below: a paragraph's font-size grows as its container widens.
 Open this page on a narrower viewport and resize the demo box to see the full range.
 
 <div class="f6y-demo">
-  <p class="f6y-demo-hint">Drag the corner to resize this container →</p>
+  <p class="f6y-demo-hint">Drag the corner to resize this container -></p>
   <p class="f6y-text-sm/3xl f6y-axis-cqi f6y-lower-[16rem] f6y-upper-[48rem]">
     This text size ramps from small to large as you resize the container.
   </p>
@@ -39,7 +39,7 @@ Open this page on a narrower viewport and resize the demo box to see the full ra
 </div>
 ```
 
-## `leading` — line-height
+## `leading`: Line-height
 
 Maps to `line-height` using the `leading` kind, which accepts spacing-scale numbers, `--leading-*` theme keys, or arbitrary values.
 Bare `f6y-leading` defaults to `--spacing(6)` (1.5rem).
@@ -51,13 +51,14 @@ Bare `f6y-leading` defaults to `--spacing(6)` (1.5rem).
 <div class="f6y-leading">Bare: uses 1.5rem as min, 3rem as max.</div>
 ```
 
-## `tracking` — letter-spacing
+## `tracking`: Letter-spacing
 
 Maps to `letter-spacing` using the `tracking` kind, which accepts `--tracking-*` theme keys or arbitrary values.
 Bare `f6y-tracking` defaults to `var(--tracking-normal)` (0em).
 
 :::warning
-**Important:** Because the ratio multiplier scales from the min value, and min is 0em, the bare `f6y-tracking` is a **constant 0em, not a ramp** — 0em × any ratio is still 0em.
+**Important:** Because the ratio multiplier scales from the min value, and min is 0em, the bare `f6y-tracking` is a **constant 0em, not a ramp**.
+Note: 0em × any ratio is still 0em.
 Use explicit values like `f6y-tracking-tighter/wider` or `f6y-tracking-[−0.05em]/[0.2em]` to create letter-spacing ramps.
 :::
 
@@ -67,7 +68,7 @@ Use explicit values like `f6y-tracking-tighter/wider` or `f6y-tracking-[−0.05e
 <div class="f6y-tracking">Bare: constant 0em (0 × ratio = 0), not a ramp.</div>
 ```
 
-## `indent` — text-indent
+## `indent`: Text-indent
 
 Maps to `text-indent` using the `spacing` kind, which accepts spacing-scale numbers or arbitrary values.
 Bare `f6y-indent` defaults to `--spacing(4)` (1rem).

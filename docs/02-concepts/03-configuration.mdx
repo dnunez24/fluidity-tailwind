@@ -10,13 +10,13 @@ All inherit, so setting one on an ancestor scopes every descendant fluid utility
 
 ## The five custom properties
 
-| Property      | Default                        | Setter utilities                                                                                                                                                                          | Purpose                                                     |
-| ------------- | ------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------- |
-| `--f6y-axis`  | `100vw`                        | `f6y-axis-vw`, `f6y-axis-vh`, `f6y-axis-vmin`, `f6y-axis-vmax`, `f6y-axis-cqi`, `f6y-axis-cqb`, `f6y-axis-cqw`, `f6y-axis-cqh`, `f6y-axis-cqmin`, `f6y-axis-cqmax`, `f6y-axis-[<length>]` | The measured length (viewport, container, or custom).       |
-| `--f6y-lower` | `var(--breakpoint-sm, 40rem)`  | `f6y-lower-sm`, `f6y-lower-md`, etc. (breakpoint keys), `f6y-lower-sm`, `f6y-lower-md`, etc. (container keys), `f6y-lower-[<length>]`                                                     | Start of the scaling ramp.                                  |
-| `--f6y-upper` | `var(--breakpoint-2xl, 96rem)` | `f6y-upper-sm`, `f6y-upper-md`, etc. (breakpoint keys), `f6y-upper-sm`, `f6y-upper-md`, etc. (container keys), `f6y-upper-[<length>]`                                                     | End of the scaling ramp.                                    |
-| `--f6y-base`  | `2`                            | `f6y-base-1.5`, `f6y-base-2`, `f6y-base-3`, `f6y-base-4`, etc.                                                                                                                            | Curve sharpness for exp/log (must be > 1).                  |
-| `--f6y-ratio` | `2`                            | `f6y-ratio-1.5`, `f6y-ratio-2`, `f6y-ratio-3`, etc.                                                                                                                                       | Max-from-min multiplier when the value modifier is omitted. |
+| Property      | Default                        | Setter utilities                                                                                                                                                                          | Purpose                                                   |
+| ------------- | ------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------- |
+| `--f6y-axis`  | `100vw`                        | `f6y-axis-vw`, `f6y-axis-vh`, `f6y-axis-vmin`, `f6y-axis-vmax`, `f6y-axis-cqi`, `f6y-axis-cqb`, `f6y-axis-cqw`, `f6y-axis-cqh`, `f6y-axis-cqmin`, `f6y-axis-cqmax`, `f6y-axis-[<length>]` | The measured length (viewport, container, or custom).     |
+| `--f6y-lower` | `var(--breakpoint-sm, 40rem)`  | `f6y-lower-sm`, `f6y-lower-md`, etc. (breakpoint keys), `f6y-lower-sm`, `f6y-lower-md`, etc. (container keys), `f6y-lower-[<length>]`                                                     | Start of the scaling ramp.                                |
+| `--f6y-upper` | `var(--breakpoint-2xl, 96rem)` | `f6y-upper-sm`, `f6y-upper-md`, etc. (breakpoint keys), `f6y-upper-sm`, `f6y-upper-md`, etc. (container keys), `f6y-upper-[<length>]`                                                     | End of the scaling ramp.                                  |
+| `--f6y-base`  | `2`                            | `f6y-base-1.5`, `f6y-base-2`, `f6y-base-3`, `f6y-base-4`, etc.                                                                                                                            | Curve sharpness for exp/log (must be > 1).                |
+| `--f6y-ratio` | `2`                            | `f6y-ratio-1.5`, `f6y-ratio-2`, `f6y-ratio-3`, etc.                                                                                                                                       | Max-from-min multiplier when you omit the value modifier. |
 
 ## Scoping with inheritance
 
@@ -53,7 +53,7 @@ This demo box scales its padding based on its own container width (not the viewp
 Drag the resize handle to see the padding change within the demo's bounds.
 
 <div class="f6y-demo">
-  <p class="f6y-demo-hint">Drag the corner to resize this container →</p>
+  <p class="f6y-demo-hint">Drag the corner to resize this container -></p>
   <div class="f6y-demo-track">
     <div class="f6y-demo-box f6y-p-2/8 f6y-axis-cqi f6y-lower-[16rem] f6y-upper-[48rem]">
       Container-scoped padding
@@ -64,14 +64,15 @@ Drag the resize handle to see the padding change within the demo's bounds.
 ## Tuning curve sharpness with `--f6y-base`
 
 Exponential and logarithmic curves bend based on `--f6y-base`.
-Higher bases (4, 8) create sharper curves; lower bases (1.5) flatten them.
+Higher bases (4, 8) create sharper curves.
+Lower bases (1.5) flatten them.
 
 In the demo below, the left box uses the default base 2, and the right box forces base 4.
 Both use `f6y-exp-p-2/8`.
-Notice how base 4 keeps padding much closer to the min (0.5rem) until the very end, then ramps faster.
+Notice how base 4 keeps padding much closer to the min (0.5rem) until the end, then ramps faster.
 
 <div class="f6y-demo">
-  <p class="f6y-demo-hint">Drag the corner to resize this container →</p>
+  <p class="f6y-demo-hint">Drag the corner to resize this container -></p>
   <div class="f6y-demo-track">
     <div class="f6y-demo-box f6y-exp-p-2/8 f6y-axis-cqi f6y-lower-[16rem] f6y-upper-[48rem]">
       base 2 (default)
@@ -84,7 +85,7 @@ Notice how base 4 keeps padding much closer to the min (0.5rem) until the very e
 
 ## Deriving max from min with `--f6y-ratio`
 
-When you omit the max value (e.g., `f6y-p-2` instead of `f6y-p-2/8`), the max is computed as `min × --f6y-ratio`.
+When you omit the max value (for example, `f6y-p-2` instead of `f6y-p-2/8`), Fluidity computes the max as `min × --f6y-ratio`.
 The default ratio is 2, so `f6y-p-2` becomes `f6y-p-2/4`.
 
 Override `--f6y-ratio` to change this derivation:

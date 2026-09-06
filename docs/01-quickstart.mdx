@@ -1,13 +1,14 @@
 ---
 title: Quickstart
-description: Install fluidity, import it after Tailwind CSS, and ship your first fluid utility — a padding value that scales continuously with the viewport.
+description: Install fluidity, import it after Tailwind CSS, and ship your first fluid utility, a padding value that scales continuously with the viewport.
 sidebar:
   label: Quickstart
   order: 1
 ---
 
 Fluidity needs **Tailwind CSS v4**.
-There's no config file, no build step of its own, and no JavaScript — it's a stylesheet of `@utility` rules that Tailwind compiles like any other utility.
+There's no config file, no build step of its own, and no JavaScript.
+It's a stylesheet of `@utility` rules that Tailwind compiles like any other utility.
 
 ## Install and import
 
@@ -18,7 +19,7 @@ There's no config file, no build step of its own, and no JavaScript — it's a s
     ```
   </Step>
   <Step title="Import it after Tailwind">
-    Fluidity's utilities are ordinary Tailwind `@utility` rules, so they need Tailwind's `@import "tailwindcss"` to run first — that's what defines `--value()`, `--modifier()`, and the theme (`--spacing()`, `--text-*`, `--breakpoint-*`, …) fluidity's utilities read from.
+    Fluidity's utilities are ordinary Tailwind `@utility` rules, so they need Tailwind's `@import "tailwindcss"` to run first. This defines `--value()`, `--modifier()`, and the theme (`--spacing()`, `--text-*`, `--breakpoint-*`) that fluidity's utilities read from.
 
     ```css lineNumbers
     @import "tailwindcss";
@@ -26,7 +27,7 @@ There's no config file, no build step of its own, and no JavaScript — it's a s
     ```
   </Step>
   <Step title="Use a fluid utility">
-    Any `f6y-*` class works anywhere a normal Tailwind utility does — on any element, with any variant.
+    Any `f6y-*` class works anywhere a normal Tailwind utility does, on any element, with any variant.
 
     ```html
     <div class="f6y-p-2/8">
@@ -38,12 +39,13 @@ There's no config file, no build step of its own, and no JavaScript — it's a s
 
 ## See it move
 
-Every fluid utility reads `--f6y-axis` — `100vw` by default — to know where it is along the ramp.
-Point it at this container instead of the viewport with `f6y-axis-cqi`, and set a shorter range with `f6y-lower-*`/`f6y-upper-*` so the box below visibly changes size within the width of this page.
-Drag the bottom-right corner to resize it — no JavaScript, just CSS `resize` and `container-type`:
+Every fluid utility reads `--f6y-axis` (defaults to `100vw`) to know where it's along the ramp.
+Point it at this container instead of the viewport with `f6y-axis-cqi`, and configure a shorter range with `f6y-lower-*`/`f6y-upper-*` so the box below visibly changes size within the width of this page.
+Drag the bottom-right corner to resize it.
+No JavaScript, just CSS `resize` and `container-type`:
 
 <div class="f6y-demo">
-  <p class="f6y-demo-hint">Drag the corner to resize this container →</p>
+  <p class="f6y-demo-hint">Drag the corner to resize this container -></p>
   <div class="f6y-demo-track">
     <div class="f6y-demo-box f6y-p-2/8 f6y-axis-cqi f6y-lower-[16rem] f6y-upper-[48rem]">
       f6y-p-2/8
@@ -59,12 +61,13 @@ Drag the bottom-right corner to resize it — no JavaScript, just CSS `resize` a
 </div>
 ```
 
-`f6y-axis-cqi`, `f6y-lower-*`, and `f6y-upper-*` are themselves fluidity utilities — they set the `--f6y-axis`, `--f6y-lower`, and `--f6y-upper` custom properties that every fluid utility beneath them inherits.
+`f6y-axis-cqi`, `f6y-lower-*`, and `f6y-upper-*` are themselves fluidity utilities.
+They set `--f6y-axis`, `--f6y-lower`, and `--f6y-upper` custom properties that every fluid utility beneath them inherits.
 See [Configuration](/concepts/configuration) for the full list.
 
 ## Value syntax
 
-`<min>[/<max>]` follows Tailwind's own value syntax — spacing-scale numbers, theme keys, or arbitrary values, mixed freely:
+`<min>[/<max>]` follows Tailwind's own value syntax: spacing-scale numbers, theme keys, or arbitrary values.
 
 ```html
 <div class="f6y-p-2/8"></div>          <!-- spacing scale: 0.5rem -> 2rem -->

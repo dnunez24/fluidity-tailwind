@@ -7,7 +7,7 @@ sidebar:
 ---
 
 Fluid UI scaling utilities for [Tailwind CSS v4](https://tailwindcss.com).
-CSS only — no JavaScript, no build step, no config file.
+CSS only, no JavaScript, no build step, no config file.
 `@import` it after Tailwind and every `f6y-*` utility scales continuously between a min and a max as the viewport (or a container) grows, clamped at both ends.
 
 ```html
@@ -26,23 +26,23 @@ CSS only — no JavaScript, no build step, no config file.
   </Card>
 </CardGroup>
 
-## Why fluidity exists
+## Why Fluidity exists
 
-Responsive design usually means picking values at a handful of breakpoints and letting the browser snap between them — `p-4 md:p-6 lg:p-8`.
-That works, but the jump at each breakpoint is visible, and the values in between the breakpoints you picked are whatever the browser happened to land on.
+Responsive design usually means picking values at a handful of breakpoints and letting the browser snap between them, like `p-4 md:p-6 lg:p-8`.
+That works, but the jump at each breakpoint is visible, and the values between the breakpoints you picked are whatever the browser happened to land on.
 
 Fluidity replaces the jump with a ramp.
-Every utility interpolates continuously between a `min` and a `max` as a measured length — the viewport by default, or a container — moves between a lower and an upper bound.
+Every utility interpolates continuously between a `min` and a `max` as a measured length (the viewport by default, or a container) that moves between a lower and an upper bound.
 There's no discrete step to notice, and no gap between breakpoints where the value was never actually designed.
 
 ## How it works
 
 <Steps>
   <Step title="Measure progress">
-    A `progress` value between 0 and 1 tracks how far the axis (`--f6y-axis`, `100vw` by default) has moved from `--f6y-lower` (40rem) to `--f6y-upper` (96rem), clamped at both ends.
+    A `progress` value between 0 and 1 tracks how far the axis has moved from `--f6y-lower` (40rem) to `--f6y-upper` (96rem). Clamping keeps values within these bounds, and by default the axis is `--f6y-axis` (`100vw`).
   </Step>
   <Step title="Ease it">
-    Progress is fed through one of three curves — linear, exponential ease-in, or logarithmic ease-out — all sharing the same two endpoints.
+    The three curves (linear, exponential ease-in, and logarithmic ease-out) transform progress before interpolation, and all three share the same two endpoints.
   </Step>
   <Step title="Interpolate the value">
     The eased progress blends `min` into `max`: `value = min + (max - min) * ease(progress)`.
@@ -54,39 +54,42 @@ progress = clamp(0, (axis - lower) / (upper - lower), 1)
 value    = min + (max - min) * ease(progress)
 ```
 
-Division of two lengths isn't valid in `calc()`, so fluidity computes progress as `clamp(0, tan(atan2(axis - lower, upper - lower)), 1)` instead — a standard trick for length ÷ length in plain CSS.
+Division of two lengths isn't valid in `calc()`, so fluidity computes progress as `clamp(0, tan(atan2(axis - lower, upper - lower)), 1)` using a standard trick for length ÷ length in plain CSS.
 See [How it works](/concepts/how-it-works) for the full derivation.
 
 Every declaration a fluidity utility emits is a single `calc()` expression.
-There's no custom property indirection to debug in DevTools and no JavaScript computing anything at runtime — the browser's CSS engine does all of it, every frame, for free.
+There's no custom property indirection to debug in DevTools and no JavaScript computing anything at runtime.
+The browser's CSS engine does it all, every frame, for free.
 
 ## What makes it different
 
-### CSS only, zero runtime cost
+### Zero runtime overhead
 
 No JavaScript ships, none runs, and there's nothing to hydrate.
-A fluidity utility is exactly as cheap as any other Tailwind utility — it's a `@utility` rule Tailwind compiles like any other, and the browser evaluates `calc()`/`clamp()` natively.
+A fluidity utility is exactly as cheap as any other Tailwind utility.
+It's a `@utility` rule Tailwind compiles like any other, and the browser evaluates `calc()`/`clamp()` natively.
 
 ### Every fluidity utility is a real Tailwind utility
 
 Fluidity ships 279 `@utility` rules, generated from the same `--value()`/`--modifier()` machinery Tailwind's own core utilities use.
-That means arbitrary values, theme keys, and every built-in variant — `md:f6y-p-8/32`, `hover:f6y-gap-2/8`, `dark:f6y-p-4` — work exactly the way they do on `p-4` or `gap-2`, because to Tailwind, they're the same kind of thing.
+That means arbitrary values, theme keys, and every built-in variant (including `md:f6y-p-8/32`, `hover:f6y-gap-2/8`, `dark:f6y-p-4`) work exactly the way they do on `p-4` or `gap-2`, because to Tailwind, they're the same kind of thing.
 
 ### Three curves, one set of endpoints
 
 Every utility ships in linear, `exp-` (exponential ease-in), and `log-` (logarithmic ease-out) variants, and all three land on identical values at the bounds.
-Swapping `f6y-p-2/8` for `f6y-exp-p-2/8` changes nothing about where the ramp starts or ends — only the path it takes getting there.
+Swapping `f6y-p-2/8` for `f6y-exp-p-2/8` changes nothing about where the ramp starts or ends.
+Only the path it takes changes.
 See [Curves](/concepts/curves).
 
-### Viewport or container — your choice
+### Viewport or container: Your choice
 
-Every fluid utility reads a single custom property, `--f6y-axis`, to know what to scale against.
-It defaults to `100vw`, but switching an element (and everything beneath it) to scale against its container instead of the viewport is one utility class: `f6y-axis-cqi`.
+Every fluid utility reads a single custom property, `--f6y-axis`, to know what to scale with.
+It defaults to `100vw`, but switching an element (and everything beneath it) to scale with its container instead of the viewport is one utility class: `f6y-axis-cqi`.
 See [Configuration](/concepts/configuration).
 
 ## Utility coverage
 
-Every property below ships in linear, `exp-`, and `log-` variants — 279 `@utility` rules in total:
+Every property below ships in linear, `exp-`, and `log-` variants, for a total of 279 `@utility` rules:
 
 | Group                  | Utilities                                                                       |
 | ---------------------- | ------------------------------------------------------------------------------- |

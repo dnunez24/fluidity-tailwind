@@ -1,6 +1,6 @@
 ---
 title: Utilities
-description: Every fluidity utility family, the value syntax they share, and how curve and variant support works across all of them.
+description: Every fluidity utility family, the value syntax they share, and how curve and variant support works across all.
 sidebar:
   label: Overview
   order: 0
@@ -11,7 +11,7 @@ Every one of them follows the same three rules, so once you've used one you've u
 
 ## One value syntax, everywhere
 
-Every fluid utility is `f6y-<curve-ns><name>-<min>[/<max>]`, and `<min>[/<max>]` accepts the same shapes Tailwind's own utilities do — spacing-scale numbers, theme keys, or arbitrary values, mixed freely.
+Every fluid utility is `f6y-<curve-ns><name>-<min>[/<max>]`, and `<min>[/<max>]` accepts the same shapes Tailwind's own utilities do: spacing-scale numbers, theme keys, or arbitrary values, mixed in any combination.
 What differs between property groups is only which **kind** of value the bounds resolve through:
 
 | Kind        | Used by                                                                              | Accepts                                                                   | Bare (`f6y-p` with no value) falls back to |
@@ -22,7 +22,7 @@ What differs between property groups is only which **kind** of value the bounds 
 | `leading`   | `leading`                                                                            | spacing-scale numbers, `--leading-*` keys, or arbitrary values            | `--spacing(6)` (1.5rem)                    |
 | `tracking`  | `tracking`                                                                           | `--tracking-*` keys or arbitrary values                                   | `var(--tracking-normal)` (`0em`)           |
 | `radius`    | `rounded` and every corner                                                           | `--radius-*` keys or arbitrary values                                     | `var(--radius-md)` (0.375rem)              |
-| `lineWidth` | border and outline widths                                                            | px counts (like `border-2` → `2px`) or arbitrary `[length]`               | `1px`                                      |
+| `lineWidth` | border and outline widths                                                            | px counts (like `border-2` -> `2px`) or arbitrary `[length]`              | `1px`                                      |
 
 Whatever the kind, the same five value forms are always available:
 
@@ -38,7 +38,8 @@ See [How it works](/concepts/how-it-works) for the derivation, or the [utility i
 
 ## Three curves, no exceptions
 
-Every one of the 88 base utilities below ships in linear (no prefix), `exp-`, and `log-` variants — 264 classes, none of which are documented separately per family, since the curve namespace works identically everywhere.
+The 88 base utilities below each ship in linear (no prefix), `exp-`, and `log-` variants, yielding 264 classes.
+The curve namespace works identically everywhere, so variants don't need separate documentation.
 See [Curves](/concepts/curves).
 
 ## Any Tailwind variant

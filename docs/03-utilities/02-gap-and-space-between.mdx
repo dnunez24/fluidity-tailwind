@@ -35,7 +35,7 @@ This means only the **direct children except the last** receive the margin.
 The last child gets no margin, preventing unwanted trailing space.
 
 :::note
-Unlike Tailwind's own `space-x-*` and `space-y-*`, fluidity's space-between utilities do **not** have a `-reverse` variant.
+Unlike Tailwind's own `space-x-*` and `space-y-*`, fluidity's space-between utilities don't have a `-reverse` variant.
 For reversed direction, apply the utility to a flex or grid container with `flex-row-reverse` or `grid-auto-flow: column-reverse` instead.
 :::
 
@@ -43,11 +43,11 @@ For reversed direction, apply the utility to a flex or grid container with `flex
 
 Both gap and space-between utilities use the `spacing` value kind, accepting the same value forms as padding and margin:
 
-- **Pair**: `f6y-gap-2/8` → gap ramps from `0.5rem` to `2rem`
-- **Arbitrary**: `f6y-gap-[0.5rem]/[2.5rem]` → custom ramp
-- **Mixed**: `f6y-gap-2/[2.5rem]` → ramps from `0.5rem` to `2.5rem`
-- **Min only**: `f6y-gap-4` → ramps from `1rem` to `2rem` (2× the min)
-- **Bare**: `f6y-gap` → ramps from `1rem` to `2rem` (the spacing kind's default)
+- **Pair**: `f6y-gap-2/8` -> gap ramps from `0.5rem` to `2rem`
+- **Arbitrary**: `f6y-gap-[0.5rem]/[2.5rem]` -> custom ramp
+- **Mixed**: `f6y-gap-2/[2.5rem]` -> ramps from `0.5rem` to `2.5rem`
+- **Min only**: `f6y-gap-4` -> ramps from `1rem` to `2rem` (2× the min)
+- **Bare**: `f6y-gap` -> ramps from `1rem` to `2rem` (the spacing kind's default)
 
 ## Live demos
 
@@ -56,7 +56,7 @@ Both gap and space-between utilities use the `spacing` value kind, accepting the
 Resize this container to see the gap between three boxes grow:
 
 <div class="f6y-demo">
-  <p class="f6y-demo-hint">Drag the corner to resize this container →</p>
+  <p class="f6y-demo-hint">Drag the corner to resize this container -></p>
   <div class="f6y-demo-track flex f6y-gap-2/8 f6y-axis-cqi f6y-lower-[16rem] f6y-upper-[56rem]">
     <div class="f6y-demo-box flex-1" style="background: var(--blume-accent); min-height: 2rem;"></div>
     <div class="f6y-demo-box flex-1" style="background: var(--blume-accent); min-height: 2rem;"></div>
@@ -77,7 +77,7 @@ Resize this container to see the gap between three boxes grow:
 Resize this container to see the horizontal margin between three inline items grow:
 
 <div class="f6y-demo">
-  <p class="f6y-demo-hint">Drag the corner to resize this container →</p>
+  <p class="f6y-demo-hint">Drag the corner to resize this container -></p>
   <div class="f6y-space-x-2/8 f6y-axis-cqi f6y-lower-[16rem] f6y-upper-[56rem]">
     <span class="f6y-demo-box" style="display: inline-block;">Item 1</span>
     <span class="f6y-demo-box" style="display: inline-block;">Item 2</span>
@@ -97,9 +97,9 @@ Resize this container to see the horizontal margin between three inline items gr
 
 All five utilities ship in three curve variants:
 
-- `f6y-gap-2/8` — linear
-- `f6y-exp-gap-2/8` — exponential
-- `f6y-log-gap-2/8` — logarithmic
+- `f6y-gap-2/8`: linear
+- `f6y-exp-gap-2/8`: exponential
+- `f6y-log-gap-2/8`: logarithmic
 
 See [Curves](/concepts/curves) for details on how each transitions.
 

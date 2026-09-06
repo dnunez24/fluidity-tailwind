@@ -1,12 +1,13 @@
 ---
 title: Curves
-description: Linear, exponential ease-in, and logarithmic ease-out — the three curves every fluidity utility ships in, compared and demonstrated live.
+description: "Linear, exponential ease-in, and logarithmic ease-out: the three curves every fluidity utility ships in, compared and demonstrated live."
 sidebar:
   order: 2
 ---
 
-Every fluidity utility is available in three curve variants—linear, exponential, and logarithmic—each with a different ease function that transforms progress into a value.
-All three share identical endpoints (min at progress 0, max at progress 1), but diverge in between.
+Every fluidity utility is available in three curve variants: linear, exponential, and logarithmic.
+Each uses a different ease function that transforms progress into a value.
+All three share identical endpoints (min at progress 0, max at progress 1), but diverge between them.
 
 ## Linear (no prefix)
 
@@ -33,8 +34,8 @@ This is useful for properties that should respond subtly on small viewports and 
 Example: `f6y-exp-p-2/8` padding stays near 0.5rem on mobile, then shoots toward 2rem on desktop.
 
 Default base is `--f6y-base: 2`.
-Higher bases (e.g., 4, 8) make the curve sharper—more of the range stays compressed near the lower bound.
-Lower bases (e.g., 1.5) flatten the curve.
+Higher bases (for example, 4 or 8) make the curve sharper, compressing more of the range near the lower bound.
+Lower bases (for example, 1.5) flatten the curve.
 
 ## Logarithmic (`log-` prefix)
 
@@ -44,12 +45,12 @@ ease(t) = log(1 + (base - 1) × t, base)
 
 The exact inverse of exponential.
 Starts fast and decelerates.
-The value climbs quickly near the lower bound, then levels off as it approaches the upper bound.
+The value climbs steeply near the lower bound, then levels off as it approaches the upper bound.
 Use this when a property should move aggressively on small viewports and plateau on large ones.
 
-Example: `f6y-log-p-2/8` padding jumps from 0.5rem quickly, then approaches 2rem more gradually on larger viewports.
+Example: `f6y-log-p-2/8` padding jumps from 0.5rem steeply, then approaches 2rem more gradually on larger viewports.
 
-Like exponential, the curve sharpness is controlled by `--f6y-base`.
+Like exponential, `--f6y-base` controls the curve sharpness.
 
 ## Side-by-side comparison
 
@@ -57,7 +58,7 @@ Resize the container below to see how the three curves diverge.
 All three use identical min (0.5rem) and max (2rem) bounds, but the padding value follows a different path between them.
 
 <div class="f6y-demo">
-  <p class="f6y-demo-hint">Drag the corner to resize this container →</p>
+  <p class="f6y-demo-hint">Drag the corner to resize this container -></p>
   <div class="f6y-demo-track">
     <div class="f6y-demo-box f6y-p-2/8 f6y-axis-cqi f6y-lower-[16rem] f6y-upper-[48rem]">
       linear
@@ -74,7 +75,8 @@ All three use identical min (0.5rem) and max (2rem) bounds, but the padding valu
 ## Endpoints
 
 All three curves meet at progress 0 (where value = min) and progress 1 (where value = max), regardless of base.
-Swapping `f6y-p-2/8` for `f6y-exp-p-2/8` changes nothing at the viewport boundaries; only the path in between changes.
+Swapping `f6y-p-2/8` for `f6y-exp-p-2/8` changes nothing at the viewport boundaries.
+Only the path between them changes.
 This makes curves safe to swap mid-project.
 
 <CardGroup cols={2}>

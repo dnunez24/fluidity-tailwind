@@ -1,6 +1,6 @@
 ---
 title: How It Works
-description: The clamp model behind every fluid utility — the progress formula, why tan(atan2()) replaces length division, and a fully worked numeric example.
+description: The clamp model behind every fluid utility, the progress formula, why tan(atan2()) replaces length division, and a fully worked numeric example.
 sidebar:
   order: 1
 ---
@@ -15,12 +15,12 @@ progress = clamp(0, (axis - lower) / (upper - lower), 1)
 value    = min + (max - min) × ease(progress)
 ```
 
-`progress` measures how far the axis has traveled from `lower` to `upper`, clamped between 0 and 1.
-The `ease` function then transforms that progress (linear, exponential, or logarithmic), and the result scales a value from `min` to `max`.
+`progress` measures how far the axis has traveled from `lower` to `upper` (clamped between 0 and 1).
+The `ease` function then transforms that progress (linear, exponential, or logarithmic), and scales a value from `min` to `max`.
 
 ## Why `tan(atan2())`?
 
-CSS `calc()` cannot divide a length by a length.
+CSS `calc()` can't divide a length by a length.
 `(axis - lower) / (upper - lower)` would require dividing 56rem by 56rem to get a unitless number.
 To work around this, fluidity computes the same result using pure CSS math:
 
@@ -34,7 +34,7 @@ The result is the exact same progress value, computed without length-by-length d
 
 ## Worked example: `f6y-p-2/8`
 
-Let's trace through a real padding utility across three viewport widths.
+Here's a traced example through a real padding utility across three viewport widths.
 
 **Setup:**
 
@@ -87,7 +87,7 @@ ease(0.5) = log(1 + (2 - 1) × 0.5, 2) = log(1.5, 2) ≈ 0.585
 padding = 0.5rem + 1.5rem × 0.585 = 0.5rem + 0.878rem ≈ 1.378rem
 ```
 
-### Above the upper bound (viewport 110rem)
+### Beyond the upper bound (viewport 110rem)
 
 ```text
 axis = 110rem
@@ -106,12 +106,12 @@ The padding is exactly the max value.
 Every utility family (spacing, sizing, typography, etc.) accepts the same value modifier forms.
 The kind table in the assignment context defines what the bare default is for each property:
 
-- **Pair**: `-2/8` — both bounds from the theme/scale (e.g., `spacing(2)` and `spacing(8)`)
-- **Arbitrary**: `-[1rem]/[3rem]` — both bounds as bracketed literal CSS values
-- **Mixed**: `-2/[3rem]` — one from the scale, one arbitrary
-- **Theme** (where applicable): `-sm/xl` — theme keys (e.g., breakpoint or container keys)
-- **Min only**: `-2` — max is derived as `min × --f6y-ratio` (default 2×)
-- **Bare** (no value): `f6y-p` — min falls back to the property's default, max derived as `default × ratio`
+- **Pair**: `-2/8`: both bounds from the theme/scale (for example, `spacing(2)` and `spacing(8)`)
+- **Arbitrary**: `-[1rem]/[3rem]`: both bounds as bracketed literal CSS values
+- **Mixed**: `-2/[3rem]`: one from the scale, one arbitrary
+- **Theme** (where applicable): `-sm/xl`: theme keys (for example, breakpoint or container keys)
+- **Min only**: `-2`: the max equals `min × --f6y-ratio` (default 2×)
+- **Bare** (no value): `f6y-p`: min falls back to the property's default, max derived as `default × ratio`
 
 Within any form, all three curves are available: `f6y-p-2/8`, `f6y-exp-p-2/8`, `f6y-log-p-2/8`.
 

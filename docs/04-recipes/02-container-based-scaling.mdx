@@ -5,8 +5,8 @@ sidebar:
   order: 2
 ---
 
-A reusable card component needs to look right in every layout — 1-column mobile, 2-column tablet, 3-column desktop grid.
-Rather than writing per-breakpoint overrides for each grid context, set the card's bounds to scale off its own container width using `f6y-axis-cqi`, so the same card adapts automatically.
+A reusable card component needs to look right in every layout: 1-column mobile, 2-column tablet, and 3-column desktop grid.
+Rather than writing per-breakpoint overrides for each grid context, configure the card to scale off its own container width using `f6y-axis-cqi`, so the same card adapts automatically.
 
 ## The pattern
 
@@ -26,7 +26,7 @@ Wrap the card in a container, then use `f6y-axis-cqi` on the card root to measur
 ```
 
 `f6y-axis-cqi` tells fluidity to use container query inline size (`cqi`) as the axis instead of viewport width (`vw`).
-`f6y-lower-*` and `f6y-upper-*` set the ramp range: padding and text grow smoothly as the card's container grows from 12rem to 48rem.
+`f6y-lower-*` and `f6y-upper-*` define the ramp range: padding and text grow as the card's container grows from 12rem to 48rem.
 Use the same card class in a mobile column (12rem) or a desktop grid column (48rem+), and padding and text scale independently to fit each one.
 
 :::note
@@ -43,7 +43,7 @@ Drag the resize handles to see the card adapt independently to each container's 
   <div>
     <p style="font-size: 0.875rem; color: var(--slate-600); margin-bottom: 0.5rem;">Narrow (mobile):</p>
     <div class="f6y-demo" style="width: 100%;">
-      <p class="f6y-demo-hint">Drag →</p>
+      <p class="f6y-demo-hint">Drag -></p>
       <div class="f6y-demo-track">
         <div class="f6y-demo-box f6y-p-2/4 f6y-axis-cqi f6y-lower-[12rem] f6y-upper-[32rem]">
           <p style="font-size: 0.875rem; font-weight: bold;">Card title</p>
@@ -55,7 +55,7 @@ Drag the resize handles to see the card adapt independently to each container's 
   <div>
     <p style="font-size: 0.875rem; color: var(--slate-600); margin-bottom: 0.5rem;">Wide (desktop):</p>
     <div class="f6y-demo" style="width: 100%;">
-      <p class="f6y-demo-hint">Drag →</p>
+      <p class="f6y-demo-hint">Drag -></p>
       <div class="f6y-demo-track">
         <div class="f6y-demo-box f6y-p-2/4 f6y-axis-cqi f6y-lower-[12rem] f6y-upper-[32rem]">
           <p style="font-size: 0.875rem; font-weight: bold;">Card title</p>
@@ -68,7 +68,7 @@ Drag the resize handles to see the card adapt independently to each container's 
 
 Both cards use identical classes (`f6y-p-2/4 f6y-axis-cqi f6y-lower-[12rem] f6y-upper-[32rem]`), but padding and text size respond to each container's width independently.
 
-## HTML structure
+## Code structure
 
 ```html
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -87,12 +87,14 @@ Both cards use identical classes (`f6y-p-2/4 f6y-axis-cqi f6y-lower-[12rem] f6y-
 ```
 
 The outer grid uses Tailwind's breakpoint variants to set column count.
-Each grid cell is a `@container` so its child card can measure the column width with `cqi` — no per-breakpoint card overrides needed.
+Each grid cell is a `@container` so its child card can measure the column width with `cqi`.
+No per-breakpoint card overrides needed.
 
 ## Why it works
 
 Container query units decouple a component from the viewport.
-A card in a sidebar (narrow) and a card in a main grid (wide) can use the exact same fluid utility classes because `cqi` measures each card's own ancestor container, not the viewport.
+A card in a sidebar (narrow) or a card in a main grid (wide) can use the exact same fluid utility classes.
+This works because `cqi` measures each card's own ancestor container, not the viewport.
 The result: component-first responsive design with no context-specific class overrides.
 
 See [Configuration](/concepts/configuration) for other axis choices (viewport units, container query dimensions, and logical directions).
