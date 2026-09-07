@@ -63,7 +63,13 @@ export default defineConfig({
     structuredData: true,
   },
 
+  // GitHub Pages project site: served from https://dnunez24.github.io under
+  // the repository's own subdirectory, so every route and asset needs the
+  // `/fluidity-tailwind` prefix. `site` is the bare origin -- Blume composes
+  // the two for canonicals, the sitemap, robots, and OG images.
   deployment: {
     output: "static",
+    site: "https://dnunez24.github.io",
+    base: "/fluidity-tailwind",
   },
 });
