@@ -18,6 +18,16 @@ name: Release
 #
 # The `paths` filter below is a second, cheaper gate: pushes that only touch
 # the docs site or unrelated root files never invoke the workflow at all.
+#
+# Publishing uses npm Trusted Publishing (OIDC) -- no long-lived npm token is
+# stored anywhere. This requires the "publish" job's `id-token: write`
+# permission (which mints the OIDC token) AND a matching Trusted Publisher
+# configured on fluidity-tailwind's npmjs.com package settings: organization
+# `dnunez24`, repository `fluidity-tailwind`, workflow filename
+# `release.yml`, no environment. That configuration must also explicitly
+# allow direct `npm publish` (not just the always-allowed `npm stage
+# publish`) -- Changesets only ever calls a single, direct publish and has
+# no staged-publish confirm step.
 
 on:
   push:
@@ -94,6 +104,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+      id-token: write # required for npm trusted publishing (OIDC) -- see https://docs.npmjs.com/trusted-publishers
     steps:
       - name: Check out repo
         uses: actions/checkout@v7
@@ -114,5 +125,3 @@ jobs:
 
       - name: Publish packages
         uses: changesets/action/publish@v2
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
