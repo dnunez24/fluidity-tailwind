@@ -1,0 +1,85 @@
+name: Deploy docs to GitHub Pages
+
+# Builds the Blume docs site (website/) and publishes it to GitHub Pages
+# whenever a push to main touches the docs or their inputs. The `paths`
+# filter below is the only gate -- unlike release.yml there's no further
+# "did anything actually change" check, so it's kept precise:
+#
+#   - website/**                          docs content, config, and theme
+#   - scripts/build-docs-reference.mjs    generates the reference pages
+#   - fluidity-tailwind/index.css         the generated CSS that script reads
+#   - pnpm-lock.yaml, pnpm-workspace.yaml dependency/workspace changes
+#   - mise.toml                           toolchain version (Node, pnpm)
+#   - package.json                        root docs:build/docs:reference scripts
+#   - this workflow file
+#
+# Split into build/deploy jobs (rather than GitHub's single-job template) so
+# the elevated `pages`/`id-token` permissions are scoped to the deploy step
+# alone, matching this repo's per-job least-privilege convention in
+# release.yml.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "website/**"
+      - "scripts/build-docs-reference.mjs"
+      - "fluidity-tailwind/index.css"
+      - "pnpm-lock.yaml"
+      - "pnpm-workspace.yaml"
+      - "mise.toml"
+      - "package.json"
+      - ".github/workflows/docs.yml"
+  workflow_dispatch: {}
+
+permissions: {}
+
+# Only one Pages deployment at a time; never cancel one mid-flight.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    name: Build docs site
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@v7
+
+      - name: Set up mise-managed toolchain
+        uses: jdx/mise-action@v4
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Generate docs reference pages
+        run: pnpm docs:reference
+
+      - name: Build docs site
+        run: pnpm docs:build
+
+      - name: Set up Pages
+        uses: actions/configure-pages@v6
+
+      - name: Upload docs artifact
+        uses: actions/upload-pages-artifact@v5
+        with:
+          path: website/dist
+
+  deploy:
+    name: Deploy to GitHub Pages
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v5
