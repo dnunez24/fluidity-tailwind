@@ -6,10 +6,13 @@ assert_lefthook_installed: true
 pre-commit:
   piped: true
   # .agents/ and .claude/ are vendored skill docs, not this project's own
-  # prose; never lint or reformat them.
+  # prose; never lint or reformat them. .changeset/*.md and CHANGELOG.md
+  # are Changesets-generated/prompt-authored, not hand-written prose.
   exclude:
     - ".agents/**"
     - ".claude/**"
+    - ".changeset/**"
+    - "**/CHANGELOG.md"
   skip:
     - merge
     - rebase
@@ -35,6 +38,8 @@ pre-push:
   exclude:
     - ".agents/**"
     - ".claude/**"
+    - ".changeset/**"
+    - "**/CHANGELOG.md"
   jobs:
     - name: rumdl-format-check
       glob: "*.{md,mdx}"

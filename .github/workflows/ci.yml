@@ -1,0 +1,52 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions: {}
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: Build, test, and lint
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@v7
+
+      - name: Set up mise-managed toolchain
+        uses: jdx/mise-action@v4
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build fluidity-tailwind and verify generated files are current
+        run: pnpm build:check
+
+      - name: Verify npm package contents
+        working-directory: fluidity-tailwind
+        run: |
+          files=$(npm pack --dry-run --json | jq -r '.[0].files[].path')
+          echo "$files"
+          for required in index.css package.json README.md LICENSE; do
+            grep -qx "$required" <<< "$files" || { echo "::error::$required is missing from the npm package tarball"; exit 1; }
+          done
+
+      - name: Test fluidity-tailwind
+        run: pnpm test
+
+      - name: Build docs site
+        run: pnpm docs:build
+
+      - name: Lint Markdown structure and formatting
+        run: rumdl check .
+
+      - name: Lint Markdown prose
+        run: vale README.md website/docs

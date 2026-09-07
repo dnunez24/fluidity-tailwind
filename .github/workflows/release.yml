@@ -1,0 +1,114 @@
+name: Release
+
+# Versioning and publishing for fluidity-tailwind, driven by Changesets
+# (https://changesets.dev/guide/automating). `select-mode` inspects the repo
+# on every push and reports one of three modes:
+#
+#   - "version": unreleased changesets are present -> open/update the
+#     "Version Packages" PR that bumps fluidity-tailwind's version and
+#     writes its CHANGELOG.md. Never publishes.
+#   - "publish": no unreleased changesets, but the local version isn't on
+#     the npm registry yet (i.e. the "Version Packages" PR was just merged)
+#     -> publish that version.
+#   - "none": local version already matches what's on the registry and
+#     there are no pending changesets -> the version/publish jobs are
+#     skipped entirely. This is the common case (docs-only or non-release
+#     commits to main) and is what keeps the job from running when neither
+#     the source nor the package version has changed.
+#
+# The `paths` filter below is a second, cheaper gate: pushes that only touch
+# the docs site or unrelated root files never invoke the workflow at all.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "fluidity-tailwind/**"
+      - ".changeset/**"
+      - "pnpm-lock.yaml"
+      - "pnpm-workspace.yaml"
+      - "mise.toml"
+      - ".github/workflows/release.yml"
+  workflow_dispatch: {}
+
+permissions: {}
+
+# One release flow per ref at a time; never cancel a publish mid-flight.
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  select-mode:
+    runs-on: ubuntu-latest
+    outputs:
+      mode: ${{ steps.select-mode.outputs.mode }}
+      publish-plan-artifact-id: ${{ steps.select-mode.outputs.publish-plan-artifact-id }}
+    permissions:
+      contents: read
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      - name: Set up mise-managed toolchain
+        uses: jdx/mise-action@v4
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Select Changesets mode
+        id: select-mode
+        uses: changesets/action/select-mode@v2
+
+  version:
+    name: Open Version Packages PR
+    if: needs.select-mode.outputs.mode == 'version'
+    needs: select-mode
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      - name: Set up mise-managed toolchain
+        uses: jdx/mise-action@v4
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Version packages
+        uses: changesets/action/version@v2
+
+  publish:
+    name: Publish to npm
+    if: needs.select-mode.outputs.mode == 'publish'
+    needs: select-mode
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@v7
+
+      - name: Set up mise-managed toolchain
+        uses: jdx/mise-action@v4
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Verify generated files are current
+        run: pnpm build:check
+
+      - name: Build fluidity-tailwind
+        run: pnpm build
+
+      - name: Publish packages
+        uses: changesets/action/publish@v2
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

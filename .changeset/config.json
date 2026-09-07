@@ -1,0 +1,19 @@
+{
+  "$schema": "https://unpkg.com/@changesets/config@4.0.0/schema.json",
+  "baseBranch": "main",
+  "access": "public",
+  "changelog": "@changesets/cli/changelog",
+  "commit": false,
+  "changedFilePatterns": [
+    "index.css",
+    "README.md",
+    "LICENSE",
+    "package.json",
+    "scripts/**"
+  ],
+  "format": false,
+  "ignore": [],
+  "fixed": [],
+  "linked": [],
+  "updateInternalDependencies": "patch"
+}
