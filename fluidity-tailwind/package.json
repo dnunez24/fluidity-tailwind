@@ -1,6 +1,6 @@
 {
   "name": "fluidity-tailwind",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Fluid UI scaling utilities for Tailwind CSS v4. Linear, exponential and logarithmic clamp-based scaling for every sizing and spacing utility.",
   "keywords": [
     "tailwindcss",
