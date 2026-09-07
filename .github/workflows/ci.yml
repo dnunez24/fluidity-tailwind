@@ -24,6 +24,9 @@ jobs:
       - name: Set up mise-managed toolchain
         uses: jdx/mise-action@v4
 
+      - name: Download Vale style packages
+        run: vale sync
+
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
