@@ -17,5 +17,5 @@ namespace
 cqi
 cqw
 px
-npm
+pnpm
 config

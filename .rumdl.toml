@@ -4,7 +4,7 @@ line-length = 100
 # never hand-edited. Formatting it here would just fight the generator on the
 # next `docs:reference` run. .agents/ and .claude/ are vendored skill docs,
 # not this project's own prose; never reformat them.
-exclude = ["docs/05-reference", ".agents", ".claude"]
+exclude = ["website/docs/05-reference", ".agents", ".claude"]
 # Recognizes PascalCase JSX components (<Steps>, <Step>) used throughout
 # docs/**/*.mdx as component markup rather than raw inline HTML. README.md
 # parses identically under this flavor since it has no JSX.
@@ -28,4 +28,4 @@ max-width = 0
 # class="f6y-demo">`) for live utility demos rendered by Blume/Astro; the mdx
 # flavor only exempts PascalCase components, not these. README.md has no such
 # usage, so MD033 stays enforced there.
-"docs/**/*.mdx" = ["MD033"]
+"website/docs/**/*.mdx" = ["MD033"]

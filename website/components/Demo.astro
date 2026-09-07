@@ -1,0 +1,63 @@
+---
+/**
+ * A live Fluidity demo.
+ *
+ * Frames slotted markup in the docs' demo chrome and makes that frame a
+ * container query context, so utilities carrying `f6y-axis-cqi` inside it ramp
+ * against the frame's inline size instead of the viewport. With `resize` the
+ * reader drags the frame's corner to drive the ramp by hand — native CSS
+ * `resize` plus `container-type`, no JavaScript.
+ *
+ * `resize` needs three things on the same element to actually be draggable: a
+ * non-`visible` overflow, a resolved size to resize *from*, and a non-inline
+ * display. The frame satisfies all three.
+ */
+type DemoResizeAxis = "x" | "y" | "both";
+
+interface Props {
+	/** Plain-text label above the frame. */
+	hint?: string;
+	/** Plain-text note below the frame. */
+	caption?: string;
+	/**
+	 * Let the reader resize the frame. `true` and `"x"` drag the inline axis —
+	 * the one fluid utilities ramp against — `"y"` the block axis, `"both"`
+	 * either.
+	 */
+	resize?: boolean | DemoResizeAxis;
+}
+
+const { caption, hint, resize } = Astro.props;
+
+const axis: DemoResizeAxis | undefined =
+	resize === true ? "x" : resize === false ? undefined : resize;
+---
+
+<figure class="not-prose my-6">
+  {
+    hint && (
+      <p class="mb-2 font-mono text-muted-foreground text-xs leading-5">
+        {hint}
+      </p>
+    )
+  }
+  <div
+    class:list={[
+      "@container max-w-full min-w-48 overflow-hidden rounded-blume border border-border bg-muted/30 p-4",
+      {
+        resize: axis === "both",
+        "resize-x": axis === "x",
+        "resize-y": axis === "y",
+      },
+    ]}
+  >
+    <slot />
+  </div>
+  {
+    caption && (
+      <figcaption class="mt-2 text-center text-muted-foreground text-xs leading-5">
+        {caption}
+      </figcaption>
+    )
+  }
+</figure>

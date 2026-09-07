@@ -1,17 +1,17 @@
 #!/usr/bin/env node
 /**
- * Generates the two exhaustive reference pages under docs/05-reference/ by
+ * Generates the two exhaustive reference pages under website/docs/05-reference/ by
  * parsing the doc comments already embedded in index.css — the single
  * source of truth scripts/build-css.mjs produces. Never hand-edit the
- * generated files; re-run this script (via `npm run docs:reference`)
- * whenever `npm run build` regenerates index.css.
+ * generated files; re-run this script (via `pnpm run docs:reference`)
+ * whenever `pnpm run build` regenerates index.css.
  */
 import { readFileSync, writeFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
-const css = readFileSync(resolve(ROOT, "index.css"), "utf8");
+const css = readFileSync(resolve(ROOT, "fluidity-tailwind/index.css"), "utf8");
 const lines = css.split("\n");
 
 /* ------------------------------------------------------------------------- *
@@ -114,7 +114,7 @@ if (totalBase * 3 + 15 !== ruleCount) {
 }
 
 /* ------------------------------------------------------------------------- *
- * Render docs/05-reference/01-utility-index.mdx
+ * Render website/docs/05-reference/01-utility-index.mdx
  * ------------------------------------------------------------------------- */
 
 function mdTable(headers, rows) {
@@ -166,7 +166,7 @@ ${utilitySections}
 `;
 
 /* ------------------------------------------------------------------------- *
- * Render docs/05-reference/02-css-variables.mdx
+ * Render website/docs/05-reference/02-css-variables.mdx
  * ------------------------------------------------------------------------- */
 
 const [lowerDoc, upperDoc, baseDoc, ratioDoc, axisDoc] = configGroup.rules;
@@ -235,10 +235,10 @@ Anything else — a fixed length, or a unit not in that list — goes through th
 </CardGroup>
 `;
 
-writeFileSync(resolve(ROOT, "docs/05-reference/01-utility-index.mdx"), utilityIndexMdx);
-writeFileSync(resolve(ROOT, "docs/05-reference/02-css-variables.mdx"), cssVariablesMdx);
+writeFileSync(resolve(ROOT, "website/docs/05-reference/01-utility-index.mdx"), utilityIndexMdx);
+writeFileSync(resolve(ROOT, "website/docs/05-reference/02-css-variables.mdx"), cssVariablesMdx);
 
 console.log(
-  `docs/05-reference/01-utility-index.mdx: ${totalBase} base utilities, ${totalBase * 3} classes\n` +
-  `docs/05-reference/02-css-variables.mdx: 5 custom properties, 15 setter utilities`,
+  `website/docs/05-reference/01-utility-index.mdx: ${totalBase} base utilities, ${totalBase * 3} classes\n` +
+  `website/docs/05-reference/02-css-variables.mdx: 5 custom properties, 15 setter utilities`,
 );

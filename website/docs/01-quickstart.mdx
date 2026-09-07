@@ -15,7 +15,7 @@ It's a stylesheet of `@utility` rules that Tailwind compiles like any other util
 <Steps>
   <Step title="Install fluidity">
     ```package-install
-    npm install fluidity-tailwind
+    fluidity-tailwind
     ```
   </Step>
   <Step title="Import it after Tailwind">
@@ -44,14 +44,11 @@ Point it at this container instead of the viewport with `f6y-axis-cqi`, and conf
 Drag the bottom-right corner to resize it.
 No JavaScript, just CSS `resize` and `container-type`:
 
-<div class="f6y-demo">
-  <p class="f6y-demo-hint">Drag the corner to resize this container -></p>
-  <div class="f6y-demo-track">
-    <div class="f6y-demo-box f6y-p-2/8 f6y-axis-cqi f6y-lower-[16rem] f6y-upper-[48rem]">
-      f6y-p-2/8
-    </div>
+<Demo caption="Drag to resize" resize="x">
+  <div class="w-full f6y-demo-box f6y-p-2/8 f6y-axis-cqi f6y-lower-[16rem] f6y-upper-[48rem]">
+    f6y-p-2/8
   </div>
-</div>
+</Demo>
 
 ```html
 <div class="@container">

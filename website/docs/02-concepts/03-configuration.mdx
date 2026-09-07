@@ -52,14 +52,13 @@ Every utility nested under `f6y-axis-cqi` then responds to that container's inli
 This demo box scales its padding based on its own container width (not the viewport).
 Drag the resize handle to see the padding change within the demo's bounds.
 
-<div class="f6y-demo">
-  <p class="f6y-demo-hint">Drag the corner to resize this container -></p>
+<Demo hint="Drag the corner to resize this container ->" resize>
   <div class="f6y-demo-track">
     <div class="f6y-demo-box f6y-p-2/8 f6y-axis-cqi f6y-lower-[16rem] f6y-upper-[48rem]">
       Container-scoped padding
     </div>
   </div>
-</div>
+</Demo>
 
 ## Tuning curve sharpness with `--f6y-base`
 
@@ -71,8 +70,7 @@ In the demo below, the left box uses the default base 2, and the right box force
 Both use `f6y-exp-p-2/8`.
 Notice how base 4 keeps padding much closer to the min (0.5rem) until the end, then ramps faster.
 
-<div class="f6y-demo">
-  <p class="f6y-demo-hint">Drag the corner to resize this container -></p>
+<Demo hint="Drag the corner to resize this container ->" resize>
   <div class="f6y-demo-track">
     <div class="f6y-demo-box f6y-exp-p-2/8 f6y-axis-cqi f6y-lower-[16rem] f6y-upper-[48rem]">
       base 2 (default)
@@ -81,7 +79,7 @@ Notice how base 4 keeps padding much closer to the min (0.5rem) until the end, t
       base 4 (sharp)
     </div>
   </div>
-</div>
+</Demo>
 
 ## Deriving max from min with `--f6y-ratio`
 

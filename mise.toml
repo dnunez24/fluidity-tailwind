@@ -17,7 +17,7 @@ depends = ["hooks", "sync"]
 
 [tasks."lint:prose"]
 description = "Lint Markdown prose with the Vale, Microsoft, and Deslop styles"
-run = "vale README.md docs"
+run = "vale README.md website/docs"
 
 [tasks."lint:md"]
 description = "Lint Markdown structure and formatting with rumdl"

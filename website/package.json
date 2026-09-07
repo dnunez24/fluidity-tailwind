@@ -1,0 +1,17 @@
+{
+	"name": "website",
+	"private": true,
+	"scripts": {
+		"predev": "node ../scripts/build-docs-reference.mjs",
+		"dev": "blume dev",
+		"prebuild": "node ../scripts/build-docs-reference.mjs",
+		"build": "blume build",
+		"preview": "blume preview"
+	},
+	"dependencies": {
+		"blume": "^1.6.2"
+	},
+	"devDependencies": {
+		"fluidity-tailwind": "workspace:*"
+	}
+}

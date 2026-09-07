@@ -1,13 +1,13 @@
 ---
 title: Curves
-description: "Linear, exponential ease-in, and logarithmic ease-out: the three curves every fluidity utility ships in, compared and demonstrated live."
+description: "Comparing and demonstrating the three available function curves in fluidity."
 sidebar:
   order: 2
 ---
 
-Every fluidity utility is available in three curve variants: linear, exponential, and logarithmic.
-Each uses a different ease function that transforms progress into a value.
-All three share identical endpoints (min at progress 0, max at progress 1), but diverge between them.
+Every fluidity utility comes in linear, exponential, and logarithmic curve variants.
+Each uses a different easing function that transforms progress between the viewport limits into a target value.
+They share the same start and end values (min at progress 0, max at progress 1), but return different target values between the extremes.
 
 ## Linear (no prefix)
 
@@ -55,27 +55,26 @@ Like exponential, `--f6y-base` controls the curve sharpness.
 ## Side-by-side comparison
 
 Resize the container below to see how the three curves diverge.
-All three use identical min (0.5rem) and max (2rem) bounds, but the padding value follows a different path between them.
+All three use identical min (6rem) and max (100cqi) bounds, but the width value scales differently for each.
 
-<div class="f6y-demo">
-  <p class="f6y-demo-hint">Drag the corner to resize this container -></p>
-  <div class="f6y-demo-track">
-    <div class="f6y-demo-box f6y-p-2/8 f6y-axis-cqi f6y-lower-[16rem] f6y-upper-[48rem]">
-      linear
-    </div>
-    <div class="f6y-demo-box f6y-exp-p-2/8 f6y-axis-cqi f6y-lower-[16rem] f6y-upper-[48rem]">
+<Demo caption="Drag to resize" resize>
+  <div class="@container f6y-demo-track flex flex-col gap-4">
+    <div class="f6y-demo-box f6y-exp-w-24/[100cqi] f6y-axis-cqi f6y-lower-[16rem] f6y-upper-[36rem]">
       exponential
     </div>
-    <div class="f6y-demo-box f6y-log-p-2/8 f6y-axis-cqi f6y-lower-[16rem] f6y-upper-[48rem]">
+    <div class="f6y-demo-box f6y-w-24/[100cqi] f6y-axis-cqi f6y-lower-[16rem] f6y-upper-[36rem]">
+      linear
+    </div>
+    <div class="f6y-demo-box f6y-log-w-24/[100cqi] f6y-axis-cqi f6y-lower-[16rem] f6y-upper-[36rem]">
       logarithmic
     </div>
   </div>
-</div>
+</Demo>
 
 ## Endpoints
 
 All three curves meet at progress 0 (where value = min) and progress 1 (where value = max), regardless of base.
-Swapping `f6y-p-2/8` for `f6y-exp-p-2/8` changes nothing at the viewport boundaries.
+Swapping `f6y-w-24/[100cqi]` for `f6y-exp-w-24/[100cqi]` changes nothing at the viewport boundaries.
 Only the path between them changes.
 This makes curves safe to swap mid-project.
 

@@ -11,17 +11,6 @@ CSS only, no JavaScript, no build step, no config file.
 <div class="f6y-text-sm/4xl">font-size ramps var(--text-sm) → var(--text-4xl)</div>
 ```
 
-## Documentation
-
-Full docs (concepts, every utility family with live demos, recipes, and a
-generated reference of all 279 utilities) live under [`docs/`](docs), built
-with [Blume](https://github.com/haydenbleasel/blume):
-
-```sh
-npm run docs:dev     # dev server with hot reload
-npm run docs:build   # static site to dist/
-```
-
 ## Install
 
 ```sh
@@ -141,23 +130,29 @@ The property then falls back to its initial or inherited value (for example, `f6
 ## Development
 
 ```sh
-npm install
-npm run build        # regenerate index.css + examples/ from scripts/build-css.mjs
-npm run build:check  # fail if generated files are stale
-npm run docs:reference # regenerate docs/05-reference/*.mdx from index.css
+pnpm install
+pnpm run build        # regenerate fluidity-tailwind/index.css + fluidity-tailwind/examples/ from fluidity-tailwind/scripts/build-css.mjs
+pnpm run build:check  # fail if generated files are stale
+pnpm run docs:reference # regenerate website/docs/05-reference/*.mdx from fluidity-tailwind/index.css
 ```
 
-`scripts/build-css.mjs` generates `index.css` and `examples/{coverage.html,manifest.json,src/coverage.css}` from its utility table. Never hand-edit them directly.
-`examples/kitchen-sink.html` is a hand-authored demo: every box renders a real `f6y-*` class and shows its live computed value.
+`fluidity-tailwind/scripts/build-css.mjs` generates `fluidity-tailwind/index.css` and `fluidity-tailwind/examples/{coverage.html,manifest.json,src/coverage.css}` from its utility table. Never hand-edit them directly.
+`fluidity-tailwind/examples/kitchen-sink.html` is a hand-authored demo: every box renders a real `f6y-*` class and shows its live computed value.
 Resize the window or drag the dashed container to see it recompute in real time.
-`examples/coverage.html` + `examples/manifest.json` are the machine-generated fixture/assertion pair.
+`fluidity-tailwind/examples/coverage.html` + `fluidity-tailwind/examples/manifest.json` are the machine-generated fixture/assertion pair.
 Together they validate every one of the 1,236 generated utility instances in a real browser (clamping, shared curve endpoints, monotonicity, curve ordering, and ratio-derived maxima).
+
+## Documentation website
+
+Full docs (concepts, every utility family with live demos, recipes, and a
+generated reference of all 279 utilities) live under [`website/docs/`](website/docs), built
+with [Blume](https://github.com/haydenbleasel/blume):
+
+```sh
+pnpm run docs:dev # dev server with hot reload pnpm run docs:build # static site to dist/
+```
 
 ## Prior art
 
 - [fluid.tw](https://fluid.tw/)
 - [fluid-tailwindcss](https://fluid-tailwindcss.vietnx.io.vn/)
-
-## License
-
-MIT © [Dave Nuñez](https://davidanunez.com/)
